@@ -108,129 +108,6 @@
           
           
             
-              <a class="post-title-link" href="/2016/10/04/我的第一次培训/">
-                我的第一次培训
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2016-10-04
-          
-        </span>
-
-        
-          
-        
-
-        
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p><strong>Workshop第一次培训感悟体会</strong></p>
-<p><strong>背景</strong></p>
-<p>上周日参加了学长组织的Workshop的第一次培训，第一次培训的内容是静态博客的搭建，给我们授课的是姜建林学长，在这次培训中，我遇到了许多问题，但同时也学习到了许多：</p>
-<p><strong>课上学习</strong></p>
-<p>首先，学长给我们讲述了为什么要搭建静态博客，通过几个例子，我们便很快体会到了静态博客的优点：个人的学习心得可以记录下来，以方便日后查看，同时可以方便别人观看自己的成果，自由开放的空间，可以毫无拘束的发表自己的看法，而且如果有一个属于自己域名是一件非常炫酷以及自豪的事情，想到这些，我就变得兴奋起来。</p>
-<p><strong>主要学到的东西</strong>：线下我们主要完成了Github的注册，ssh密钥和公钥的获取并将其复制在Github的ssh-key中，以及Hexo配置的其中一部分。</p>
-<p><strong>遇到的问题</strong>：</p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a4028bdd0.jpg" alt="2.jpg"></p>
-<p>（1）如上图所示，在ssh配置邮箱时，要执行ssh-keygen -t rsa -C1625128973@qq.com时，报错，报错语句为：-keygen-t： command not found ，反复输了两次依旧报错，后来经过自己的查找，发现自己的命令输入出错，在-keygen 和 -t之间少了一个空格。这就告诉我在执行命令语句时一定要细心。</p>
-<p>（2）在安装hexo时，当用Gitbash执行npm install hexo -g 之后发现页面停留在那个页面好长时间没有回应，后来，学长提示我们说可能是安装的Node.js的版本跟电脑的系统不匹配，于是我卸载了原来的Node.js，重新到官网上下载了安装包并进行安装，重新尝试，发现成功了。</p>
-<p>（3）之后，在进行hexo的初始化时，执行hexo init 时，发现程序又报错，于是我就去重新配置了一下Node的环境变量，重新添加了Node的Path，之后重新尝试，终于成功。下图为线下学习的部分截图：</p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a2f98ee53.png" alt="1.png"></p>
-<p><em>图为克隆远程仓库和提交申请成功后github的页面</em></p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a45c6d1d4.png" alt="3.png"></p>
-<p><em>图为在浏览器中输入mz233.github.io的404界面</em></p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a48a3f47b.jpg" alt="4.jpg"></p>
-<p><em>图为hexo配置成功后，在浏览器中输入Localhost：4000后显示的界面</em></p>
-<p><strong>课下学习</strong></p>
-<p><strong>主要完成的任务</strong>：</p>
-<p>将Hexo与远程Github想联。</p>
-<p><strong>遇到的问题</strong>:</p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a4ed85378.jpg" alt="6.jpg"></p>
-<p><em>图一</em></p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a54ba2017.png" alt="7.png"></p>
-<p><em>图二</em></p>
-<p>（1）如上图一，在执行hexo deploy命令时报错，后来重新查看了congyml文件，发现出现了图二的错误，正确的应该是：</p>
-<p>deploy：</p>
-<p>type： git</p>
-<p>reposity： git@github.com:mz233/mz233.github.io.git</p>
-<p>branch： master</p>
-<p>而我粗心地写成了如图所示的图样。</p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a57d2d97c.png" alt="8.png"></p>
-<p><em>图三</em></p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a5a844add.png" alt="5.png"></p>
-<p><em>图四</em></p>
-<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a86e17b23.png" alt="9.png"></p>
-<p><em>图五</em></p>
-<p>（2）在做步骤一的修改后，执行hexo deploy出现了图三的情况，后来看了邮件里的评论，是因为在config.yml文件配置时deploy下面的三个变量配置内容时要在其前边加一个空格，重新配置执行hexo d，hexo g之后，成功，如图四所示。</p>
-<p>（3）图片问题，刚开始将本地图片的绝对路径弄上去之后，发现预览界面图片显示不出来，后来又尝试了将图片上传到百度图片生成图片外链，发现依旧不能成功，出现如图五的情景，于是我又到知乎上边搜了一下，找到了一个图床，将图片上传可以生成图片外链，在这里分享给大家，很好用。<a href="https://sm.ms/#" target="_blank" rel="external">图床点击这里</a></p>
-<p><strong>我的意外收获</strong></p>
-<p>（1）知道了mkdir是新建文件夹的命令；<br>（2）上课时学长提到了DNS，课下了解了什么是DNS；<br>（3）了解了一下什么是URL。</p>
-<p><strong>我的感悟：</strong></p>
-<p>在这次培训中，我的感悟有很多：一如，当我第一次接触这些陌生的东西时，我应该多自己查找百度去了解它，而不是畏惧它，现在想想，从刚接触时只是简单地跟着学长说的做却从不能很确切知道这一步的目的，到现在的基本能理解前边的每一步的作用并能够独立学习一些东西，所以，陌生的东西并不可怕，只要自己按部就班地来，自己会一点点理解的。一如，要学会向其他人求助并讨论，当我的yml文件配置不成功时，我打开邮箱看到了大家的讨论并试着改了一下，对我帮助很大，同时我找到了肖滢同学，通过与她的讨论，她最终成功地帮我部署成功了，而我 也真正的明白了自己哪里出错了。所以在独立思考后还不能解决的问题，要多问，多讨论，才能最终解决。一如，要多浏览一些有用的网站，可以帮到自己，我在使用markdown时就是看了知乎上大家发的一些学习资源。</p>
-<p>所以，只要一步步慢慢来，我相信我可以学到更多的东西！</p>
-<p><strong>我在学习中参考的一些资源</strong></p>
-<p><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">link1</a></p>
-<p><a href="http://cnfeat.com/blog/2014/05/10/how-to-build-a-blog/" target="_blank" rel="external">link2</a></p>
-<p><a href="http://www.zhihu.com/question/20409634" target="_blank" rel="external">link3</a></p>
-<p><a href="http://www.tuicool.com/articles/zeIZJzv" target="_blank" rel="external">link4</a></p>
-
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Workshop/">
-                #Workshop
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
               <a class="post-title-link" href="/2016/09/25/hello-world/">
                 Hello World
               </a>
@@ -323,11 +200,11 @@
       <p class="site-description motion-element">更优秀的自己去见未来的你。</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-count">0</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
