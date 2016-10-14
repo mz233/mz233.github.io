@@ -20,19 +20,9 @@
 
 
 
+	<meta name="keywords" content="html,css,javascript,workshop," />
 
-    <meta name="keywords" content="Hexo,next" />
-
-
-
-
-
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.0" />
-
-
-
-
-  <title> Hello World // mz </title>
+  <title> 淘宝登录界面的编写 // mz </title>
 </head>
 
 <body>
@@ -113,7 +103,7 @@
           
           
             
-              Hello World
+              淘宝登录界面的编写
             
           
         </h1>
@@ -122,11 +112,38 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2016-09-25
+            发表于 2016-10-14
           
         </span>
 
         
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/html/">html</a>
+
+                
+                
+                  ， 
+                
+
+              
+                <a href="/categories/html/css/">css</a>
+
+                
+                
+                  ， 
+                
+
+              
+                <a href="/categories/html/css/javascript/">javascript</a>
+
+                
+                
+
+              
+            </span>
           
         
 
@@ -134,8 +151,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2016/09/25/hello-world/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/hello-world/"></span>
+            <a href="/2016/10/14/淘宝登录界面的编写/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/淘宝登录界面的编写/"></span>
             </a>
           </span>
           
@@ -150,15 +167,81 @@
         
 
         
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+          <p>#<strong>第二次培训感悟</strong></p>
+<p>##<strong>课上学习</strong></p>
+<p>本次课程得主要任务是完成淘宝登录页面的编写，课上学长带领我们主要完成了淘宝登录页面的主要框架的搭建，主要是.html和.css的编写。课上遇到的主要问题是，以前由于没有接触过html和css，所以刚开始对学长所讲的东西听不懂，只是简单地跟着学长抄写学长在大屏幕上写的代码，但是后来通过自己与图片的对比，渐渐了解了每一个语句它的功能，虽然说整个过程有点懵，但是最后看到那个页面的雏形，还是蛮开心的。</p>
+<p>##<strong>课下学习</strong></p>
+<p>主要遇到的问题主要是在javascript部分以及界面设计的部分，主要问题如下：</p>
+<a id="more"></a>
+<p>（1）首先，是输入框中背景提示文字的设置。由于不知道从哪里下手，于是去网上搜了一下，得到了如下的解决方案：</p>
+<blockquote>
+<p>input type=”text” class=”form-control” placeholder=”账户（手机号)” id=”username”</p>
+<p>input type=”password” class=”form-control” placeholder=”密码” name=”password1” id=”password”</p>
+</blockquote>
+<p>即如上面所示，在相应的输入输出框模块中添加语句placeholder=”账户（手机号)” 和placeholder=”密码”即可，需要说明的是placeholder 属性是 HTML5 中的新属性。placeholder 属性提供可描述输入字段预期值的提示信息（hint）。<br>该提示会在输入字段为空时显示，并会在字段获得焦点时消失。</p>
+<p>注释：placeholder 属性适用于以下的<code>&lt;input&gt; 类型：text, search, url, telephone, email 以及 password。</code></p>
+<p>效果如下</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800da940b220.png" alt="图一"></p>
+<p>（2）对js完全没有接触过，不知道从哪下手。于是在网易云课堂上听了HTML+css+javascript的基础章节，对js有了初步的了解。我觉得讲的挺好的，<a href="http://study.163.com/course/courseLearn.htm?courseId=1002905013#/learn/video?lessonId=1003293212&amp;courseId=1002905013" target="_blank" rel="external">网易云课堂html+css+js</a>.</p>
+<p>（3）js主要控制语句的编写。由于是输入不同情况，出现不同的警告语句以及提示语句，所以采用if的控制语句，具体做法如下：</p>
+<pre><code>if (username.value == &quot;&quot;) {//实现语句}
+if (!num.test(username.value)) {//实现语句}
+if (password.value == &quot;&quot;) {//实现语句}
+if (username.value !=&quot;13012345678&quot;) {//实现语句}
+if (password.value!= 123456) {//实现语句}
+else{//实现语句}
+</code></pre><p>（4）警告框与提示框的设置。（3）中的语句编写成功后发现，弹出的警告框如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800daefa82ae.png" alt="7.png"></p>
+<p>于是，查了一下，警告框的设置主要是采用了bookstrap的样式，在html中的具体语句如下（这里仅以其中一种警告框为例，其他的类似）：</p>
+<pre><code>&lt;div class=&quot;alert alert-danger&quot; style=&quot;display: none; height: 27px; margin-right: 20px; margin-left: 20px; padding: 0px&quot;id=&quot;alert_warn1&quot;&gt;
+&lt;img src=&quot;error.png&quot; alt=&quot;warn&quot; width=&quot;22px&quot; height=&quot;22px&quot; style=&quot;color: white&quot;&gt;
+&lt;b&gt; style=&quot;color: #f84e4e; font-size: smaller; font-weight: 700;font-size: 15px;font-family: &apos;Microsoft YaHei UI&apos;&quot;&gt;用户名不能为空!&lt;/b&gt;
+&lt;/div&gt;
+</code></pre><p>上边的style=”display: none;语句表示警告框的显示形式为隐藏，也就是在html界面其实看不到的。</p>
+<p>（5）控制警告框的出现。具体实现语句如下：</p>
+<pre><code>var warn1 = document.getElementById(&quot;alert_warn1&quot;);
+ if (username.value == &quot;&quot;) {
+    warn1.style.display=&quot;block&quot;;//（m）
+    warn2.style.display=&quot;none&quot;;
+    warn3.style.display=&quot;none&quot;;
+    warn4.style.display=&quot;none&quot;;
+    warn5.style.display=&quot;none&quot;;
+    success.style.display=&quot;none&quot;;
+    setTimeout(&quot;codefans1()&quot;,3000);//3秒
+    username.value.focus();
+   return false;
+}
+</code></pre><p>上边的m语句即表示显示该警告框而隐藏其他警告框。</p>
+<p>（6）将编辑好的js文件用于html文件中，主要是运用该语句</p>
+<pre><code>&lt;script src=&quot;js.js&quot; type=&quot;text/javascript&quot;&gt;
+    &lt;/script&gt;
+</code></pre><p>而何时用js中编写好的控制语句则用该语句：</p>
+<pre><code>&lt;button class=&quot;btn&quot; type=&quot;button&quot; onclick=&quot;setTimeout($check(), 200);&quot; id=&quot;buttons&quot;&gt;登&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;录&lt;/button&gt;
+</code></pre><p>主要是其中的onclick那一句。</p>
+<p>（7）关于点击登录按钮0.2秒后出现警告框以及3秒后消失是这样设置的：</p>
+<p>0.2秒后出现警告框：</p>
+<pre><code>onclick=&quot;setTimeout($check(), 200);通过setTime函数实现。
+</code></pre><p>3秒后消失：</p>
+<pre><code>if (username.value == &quot;&quot;) {
+   warn1.style.display=&quot;block&quot;;
+   warn2.style.display=&quot;none&quot;;
+   warn3.style.display=&quot;none&quot;;
+   warn4.style.display=&quot;none&quot;;
+   warn5.style.display=&quot;none&quot;;
+   success.style.display=&quot;none&quot;;
+   setTimeout(&quot;codefans1()&quot;,3000);//3秒后消失
+   username.value.focus();
+  return false;
+ }
+
+ function codefans1(){
+   var warn1 = document.getElementById(&quot;alert_warn1&quot;);
+    warn1.style.display=&quot;none&quot;;
+ }//控制消失的函数实现
+</code></pre><p>（8）在设置输入手机号必须是11位数字时，我用了该语句：if(username.toString.length!=11)发现通过不了验证，就在群邮里问一下，原来username得到的不是输入框里面的信息，是通过usernme.value取出来的，而且toString 方法输出的是对应对象的信息：[object HTMLInputElement],所以这里是不对的。</p>
+<p>##<strong>结果展示</strong></p>
+<p>如下面图片所示：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800db4b54d0c.png" alt="3.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db1adf916.png" alt="1.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db24d6092.png" alt="2.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2608344.png" alt="3.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2876eb1.png" alt="4.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2992876.png" alt="5.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2aca30c.png" alt="6.png"></p>
 
         
       </div>
@@ -167,16 +250,36 @@
     
       <div class="post-footer">
         
+          <div class="post-tags">
+            
+              <a href="/tags/html/">
+                #html
+              </a>
+            
+              <a href="/tags/css/">
+                #css
+              </a>
+            
+              <a href="/tags/javascript/">
+                #javascript
+              </a>
+            
+              <a href="/tags/workshop/">
+                #workshop
+              </a>
+            
+          </div>
+        
 
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2016/10/05/我的第一次培训/">我的第一次培训</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016/10/05/我的第一次培训/">我的第一次培训</a>
               
             </div>
           </div>
@@ -193,8 +296,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2016/09/25/hello-world/"
-             data-title="Hello World" data-url="http://yoursite.com/2016/09/25/hello-world/">
+        <div class="ds-thread" data-thread-key="2016/10/14/淘宝登录界面的编写/"
+             data-title="淘宝登录界面的编写" data-url="http://yoursite.com/2016/10/14/淘宝登录界面的编写/">
         </div>
 
       
@@ -267,7 +370,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+            <p class="post-toc-empty">此文章未包含目录</p>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
