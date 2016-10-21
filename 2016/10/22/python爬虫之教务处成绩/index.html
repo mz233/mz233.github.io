@@ -171,13 +171,8 @@
 <p>#操作部分<br>安装环境：pycharm编程环境+anaconda包集+selenium库+phantomJS无界面爬虫浏览器</p>
 <p>在pycharm中新建.py文件开始编程。</p>
 <p>导入部分：</p>
-<pre><code>from selenium import webdriver #导入部分
-from bs4 import BeautifulSoup
-import xlwt#制成excel表格的一个库
-import string
-phantomjs_path=&apos;C:\Users\mazhuang\Desktop\Workshop\phantomjs-2.1.1-windows/bin/phantomjs.exe&apos; #加载浏览器驱动，无界面爬虫浏览器在电脑中的路径
-driver = webdriver.PhantomJS(phantomjs_path)
-</code></pre><p>打开网页：</p>
+<p>&lt;–!more–&gt;<br>    from selenium import webdriver #导入部分<br>    from bs4 import BeautifulSoup<br>    import xlwt#制成excel表格的一个库<br>    import string<br>    phantomjs_path=’C:\Users\mazhuang\Desktop\Workshop\phantomjs-2.1.1-windows/bin/phantomjs.exe’ #加载浏览器驱动，无界面爬虫浏览器在电脑中的路径<br>    driver = webdriver.PhantomJS(phantomjs_path)</p>
+<p>打开网页：</p>
 <pre><code>URL = &apos;目标网址&apos; #网页地址，即你所要抓取数据的网页
 driver.get(URL)#返回网页地址
 driver.implicitly_wait(10)#设置隐式等待时长
