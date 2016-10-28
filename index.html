@@ -116,6 +116,180 @@
           
           
             
+              <a class="post-title-link" href="/2016/10/28/Unity3D简单游戏演示/">
+                Unity3D简单游戏演示
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2016-10-28
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Unity3D/">Unity3D</a>
+
+                
+                
+                  ， 
+                
+
+              
+                <a href="/categories/Unity3D/workshop/">workshop</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/10/28/Unity3D简单游戏演示/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/28/Unity3D简单游戏演示/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <hr>
+<p><strong>首先是环境的安装</strong>：</p>
+<p>UNity3d的安装，</p>
+<p><a href="http://www.cgjoy.com/thread-103460-1-1.html" target="_blank" rel="external">下载安装包点这里</a></p>
+<p>破解：打开下载的unpch95_unityCrack文件夹，拷贝Unity 4.x Pro Patch.exe到unity安装目录下Editor文件夹下面，然后运行，点Patch按钮，读完条之后再点Ce Lic按钮，破解完成。</p>
+<p>配置环境：打开破解好的unity3d，点Edit选项卡，选择Preferences…找到External Tools，会看到External Script Editor是Monodevelop，点Browser选择自己喜欢的Editor，我自己用的是vs2010，完成以后就可以创建新工程了。</p>
+<p>##<strong>主要完成的任务</strong></p>
+<p>一个是人物的移动；第二个是人物动画的添加。</p>
+<p><strong>人物的移动</strong></p>
+<p>主要是靠一个叫做player的文件来控制，点击project视窗中的script穿件c#文件，命名为player文件，其代码即注释如下：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class player : MonoBehaviour
+{
+    public float walkSpeed;//用来控制角色移动的速度
+     // Use this for initialization
+
+    void Start()
+    {
+        walkSpeed = 5.0f;
+    }
+    void Update()
+    {
+        Vector3 direction = Input.GetAxis(&quot;Horizontal&quot;) * transform.right +
+        Input.GetAxis(&quot;Vertical&quot;) * transform.forward;
+        transform.position += walkSpeed * Time.deltaTime * direction;//控制角色的位置移动。
+    }
+}
+</code></pre><p>将该脚本与人物关联：直接拖动player文件到player上去，此时点击player，可以看到其Inspector框最下边Add Component上边多了player的控制行，此时点击运行游戏，按上下左右键人物即可前后左右移动。</p>
+<p><strong>动画的添加</strong></p>
+<p>主要是通过另一个脚本语言，player_animato控制，其代码实现与注释如下：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class player_animator : MonoBehaviour {
+public Animator animator;
+private Vector3 lastPosition;
+private float Speed;//移动速度的控制
+private float Angle;
+// Use this for initialization
+void Start () {
+    lastPosition = transform.position;
+}
+
+// Update is called once per frame
+void Update () {
+    Vector3 Velocity = (transform.position - lastPosition) / Time.deltaTime;//下一帧移动位置的确定
+    Vector3 localVelocity = transform.InverseTransformDirection(Velocity);//自身坐标系的三维变量
+    localVelocity.y = 0;
+    Speed = localVelocity.magnitude;
+    Angle = (HorizontalAngle(localVelocity)+360f)%360;
+
+    animator.SetFloat(&quot;Speed&quot;,Speed);
+    animator.SetFloat(&quot;Angle&quot;,Angle);
+
+    lastPosition = transform.position;
+
+}
+float HorizontalAngle(Vector3 localVelocity)
+{
+    float angle = Mathf.Atan2(localVelocity.z, localVelocity.x) * Mathf.Rad2Deg;//反正切函数，第一个参数为对边，第二个为邻边
+    return angle;
+}
+}
+</code></pre><p>具体Animator的控制，<a href="http://www.imooc.com/learn/313" target="_blank" rel="external">点击这里</a></p>
+<p><strong>遇到的问题</strong></p>
+<p>在Animator中，添加Speed，变量的时候，写成了speed与前边的脚本文件不一致，导致动画效果出不来。</p>
+<p><strong>感悟与体会</strong></p>
+<p>这次培训，整体上感觉蛮好玩的，因为通过自己的编写操作，人物就自己动起来了，以前只是玩游戏，现在真正地让自己去设置的时候，感觉还蛮新奇好玩的，但是由于自己以后可能不会从事游戏这个方向，所以课下也就没有花很多时间去学习它，bullet那一部分也没有自己去钻研，但是，这次的培训让我了解了一下简单游戏的诞生过程，还是蛮开心的。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Unity3D/">
+                #Unity3D
+              </a>
+            
+              <a href="/tags/Game/">
+                #Game
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/10/22/python爬虫之教务处成绩/">
                 python爬虫之教务处成绩
               </a>
@@ -576,11 +750,11 @@
       <p class="site-description motion-element">更优秀的自己去见未来的你。</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">9</span>
+            <span class="site-state-item-count">11</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
