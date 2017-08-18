@@ -1,77 +1,437 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[php环境搭建]]></title>
-    <url>%2F2017%2F08%2F16%2Fphp%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
-    <content type="text"><![CDATA[1、 下载xammp （a） 最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b） 由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。 可到其官网上下载，下载xammp 2、 配置端口 下载完成后打开xammp的控制面板，点击apache和 mysql的run，观察其启动是否正常，若启动失败，一般都是因为它的端口被占用了，这时候就需要修改它的配置文件，点击其后的config按钮就可以配置了，具体的操作步骤，可以看这个人的博客：点击这里 3、 配置虚拟地址 Xammp配置好以后，我们就来搭建本地虚拟地址，目的在于可以在浏览器中通过虚拟地址来查看php编程的运行结果。（a） 新建一个文件夹，这个文件夹是你要放入php文件的文件夹，也就是说只有放在该文件夹中的php文件才能通过虚拟地址访问。如下图，我在d盘的xammp文件夹下的htdoc下新建了pro文件夹，用以存放我将要写的php文件，其路径为：D:\xampp\htdocs\pro （b） 接下来就要开始搭建虚拟环境了，首先，找到你刚才下载的xammp文件夹，按照这个路径D:\xampp\apache\conf\extra打开httpd-vhosts.conf,注意：最好用notepad打开。在配置文件后加入以下字段： 123456&lt;VirtualHost *:80&gt; DocumentRoot &quot;D:/xampp/htdocs/pro&quot;//注意这里填写你刚刚新建文件夹的地址 ServerName www.mz.com //这里就填写你想要搭建的虚拟地址，根据自己的喜好，随便填写 ##ErrorLog &quot;logs/dummy-host2.example.com-error.log&quot; ##CustomLog &quot;logs/dummy-host2.example.com-access.log&quot; common&lt;/VirtualHost&gt; （c） 配置本地的hosts文件，一般在c盘中，不同电脑不同，可在文件夹搜索框中搜索hosts，找到后依然用notepad++ 打开，在该配置文件中，加入以下语句： 1127.0.0.1 www.mz.com（注意这里要和上边httpd-vhosts.conf中配置的虚拟地址相同） (d) 现在我们就可以在刚刚新建的文件夹中写php文件来观察运行结果了。 以我刚刚新建的pro文件夹为例，我在文件夹pro中新建ahello.php 我们以notepad++打开ahello.php 保存。然后在浏览器中打开，输入你刚刚配置的虚拟地址+ahello.php如我的是：http://www.mz.com/ahello.php 输出正确。按照这个步骤你就可以开始php编程练习了。]]></content>
-      <categories>
-        <category>php</category>
-      </categories>
-      <tags>
-        <tag>php</tag>
-        <tag>xammp</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Unity3D简单游戏演示]]></title>
-    <url>%2F2016%2F10%2F28%2FUnity3D%E7%AE%80%E5%8D%95%E6%B8%B8%E6%88%8F%E6%BC%94%E7%A4%BA%2F</url>
-    <content type="text"><![CDATA[首先是环境的安装： UNity3d的安装， 下载安装包点这里 破解：打开下载的unpch95_unityCrack文件夹，拷贝Unity 4.x Pro Patch.exe到unity安装目录下Editor文件夹下面，然后运行，点Patch按钮，读完条之后再点Ce Lic按钮，破解完成。 配置环境：打开破解好的unity3d，点Edit选项卡，选择Preferences…找到External Tools，会看到External Script Editor是Monodevelop，点Browser选择自己喜欢的Editor，我自己用的是vs2010，完成以后就可以创建新工程了。 ##主要完成的任务 一个是人物的移动；第二个是人物动画的添加。 人物的移动 主要是靠一个叫做player的文件来控制，点击project视窗中的script穿件c#文件，命名为player文件，其代码即注释如下： using UnityEngine; using System.Collections; public class player : MonoBehaviour { public float walkSpeed;//用来控制角色移动的速度 // Use this for initialization void Start() { walkSpeed = 5.0f; } void Update() { Vector3 direction = Input.GetAxis(&quot;Horizontal&quot;) * transform.right + Input.GetAxis(&quot;Vertical&quot;) * transform.forward; transform.position += walkSpeed * Time.deltaTime * direction;//控制角色的位置移动。 } } 将该脚本与人物关联：直接拖动player文件到player上去，此时点击player，可以看到其Inspector框最下边Add Component上边多了player的控制行，此时点击运行游戏，按上下左右键人物即可前后左右移动。 动画的添加 主要是通过另一个脚本语言，player_animato控制，其代码实现与注释如下： using UnityEngine; using System.Collections; public class player_animator : MonoBehaviour { public Animator animator; private Vector3 lastPosition; private float Speed;//移动速度的控制 private float Angle; // Use this for initialization void Start () { lastPosition = transform.position; } // Update is called once per frame void Update () { Vector3 Velocity = (transform.position - lastPosition) / Time.deltaTime;//下一帧移动位置的确定 Vector3 localVelocity = transform.InverseTransformDirection(Velocity);//自身坐标系的三维变量 localVelocity.y = 0; Speed = localVelocity.magnitude; Angle = (HorizontalAngle(localVelocity)+360f)%360; animator.SetFloat(&quot;Speed&quot;,Speed); animator.SetFloat(&quot;Angle&quot;,Angle); lastPosition = transform.position; } float HorizontalAngle(Vector3 localVelocity) { float angle = Mathf.Atan2(localVelocity.z, localVelocity.x) * Mathf.Rad2Deg;//反正切函数，第一个参数为对边，第二个为邻边 return angle; } } 具体Animator的控制，点击这里 遇到的问题 在Animator中，添加Speed，变量的时候，写成了speed与前边的脚本文件不一致，导致动画效果出不来。 感悟与体会 这次培训，整体上感觉蛮好玩的，因为通过自己的编写操作，人物就自己动起来了，以前只是玩游戏，现在真正地让自己去设置的时候，感觉还蛮新奇好玩的，但是由于自己以后可能不会从事游戏这个方向，所以课下也就没有花很多时间去学习它，bullet那一部分也没有自己去钻研，但是，这次的培训让我了解了一下简单游戏的诞生过程，还是蛮开心的。]]></content>
-      <categories>
-        <category>Unity3D</category>
-        <category>workshop</category>
-      </categories>
-      <tags>
-        <tag>Unity3D</tag>
-        <tag>Game</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python爬虫之教务处成绩]]></title>
-    <url>%2F2016%2F10%2F22%2Fpython%E7%88%AC%E8%99%AB%E4%B9%8B%E6%95%99%E5%8A%A1%E5%A4%84%E6%88%90%E7%BB%A9%2F</url>
-    <content type="text"><![CDATA[学习过程 这次作业主要是python爬虫，由于之前并没有接触过这个东西，所以我先到网上简单地学习了一下python语言，具体的学习网站python基础教程-菜鸟教程 操作部分 安装环境：pycharm编程环境+anaconda包集+selenium库+phantomJS无界面爬虫浏览器 在pycharm中新建.py文件开始编程。 导入部分： from selenium import webdriver #导入部分 from bs4 import BeautifulSoup import xlwt#制成excel表格的一个库 import string phantomjs_path=&apos;C:\Users\mazhuang\Desktop\Workshop\phantomjs-2.1.1-windows/bin/phantomjs.exe&apos; #加载浏览器驱动，无界面爬虫浏览器在电脑中的路径 driver = webdriver.PhantomJS(phantomjs_path) 打开网页： URL = &apos;目标网址&apos; #网页地址，即你所要抓取数据的网页 driver.get(URL)#返回网页地址 driver.implicitly_wait(10)#设置隐式等待时长 模拟登陆： 首先，要进行元素的定位。 单个元素定位： find_element_by_id find_element_by_name find_element_by_xpath find_element_by_link_text find_element_by_partial_link_text find_element_by_tag_name find_element_by_class_name find_element_by_css_selector 多个元素定位： find_elements_by_name find_elements_by_xpath find_elements_by_link_text find_elements_by_partial_link_text find_elements_by_tag_name find_elements_by_class_name find_elements_by_css_selector 其中，id，name，xpath等都是要从网页那里通过检查元素的得到的标签。比如说，要模拟登陆首先要进行网页上学号和密码输入框的定位，此时，用浏览器打开目标网页，右键单击要输入学号的地方，检查源，得到其id，name等信息在运用上边提到的函数进行元素定位。 页面的交互，我主要用到了这两个函数： click()//模拟鼠标的左键点击 send_key(value)//类似于键盘传输值的信息 submit()//模拟提交 如：要进行学号的输入： driver.find_element_by_id(&quot;textfield&quot;).send_keys(&apos;学号&apos;)//textfiled即为通过定位元素扎到的标签，用send_key(value)将学号信息传输过去 要进行历史成绩查询的点击： driver.find_element_by_link_text(&apos;历史成绩查询&apos;).click()//这里主要演示click的用法，submit()用法类似 用BeautifulSoup来抓取解析自己所需要的信息： lscj = driver.find_element_by_id(&apos;undefined&apos;).get_attribute(&quot;innerHTML&quot;)#找到要抓取的模块 Soup = BeautifulSoup(lscj, &apos;lxml&apos;) 可以用print Soup pretiffy()来运行一下看是不是自己需要的信息。 将抓取到的信息写进excel表格 首先要引入xlwt库 import xlwt excel的写入 exl = xlwt.Workbook(encoding=&apos;utf-8&apos;,style_compression=0)//创建用于写excel的exl对象其中encoding=‘utf-8’是防止解析出来的中文乱码 sheet = exl.add_sheet(&apos;mazh&apos;, cell_overwrite_ok=True)//创建表单，并且声明为可以覆盖 然后，通过sheet.write(列，行，内容)语句将所抓取的数据写进去。在进行数据写入的时候需要先找到要录入表格元素的标签，然后通过循环语句将要写入的数据写进表格。找到元素标签，主要运用这个语句： Soup.find_all(&apos;标签名称&apos;) 用 变量.string 来获取该处的内容 别忘了用.decode(‘utf-8’)来解码。 最后保存 exl.save(&quot;文件名.xls&quot;) 遇到的问题： (1)一开始，对一些定位元素的函数不会用，于是我就搜了一些运用这些函数的实例，这个实例运用推荐给大家定位元素算法的实例运用 (2)对将信息写入excel表格毫无头绪，于是就搜了一下这个网站python爬虫excel的读写 (3)一开始所保存的表格出来是乱码的，在问了同学之后，用decode(‘utf-8’)先解码再打印就好了。 还未解决的问题 由于我的成绩有22条，而页面上显示了20条，需要将页面显示数设置成50，我尝试用了各种方法，都没有成功，虽然并没有报错，但是页面效果并无反应。关于下拉框选择我尝试的方法如下网页1网页2 感悟及体会 之前没有接触过python，所以对于很多东西都无从下手，但是在自我摸索的过程中，虽然很费时费力，但是真正自学到东西还是蛮开心的，再者，就是对于自己一些连方法都看不懂的语句，要多找一些例子来看一下，在例子中更能理解其如何运用。等自己真正把这件事做出来的时候，就会觉得，其实也没什么难得。 最后十分感谢，在我自己实在摸索不出来的时候，肖同学对我的帮助，在这里推荐一下她的博客，博客]]></content>
-      <categories>
-        <category>python</category>
-        <category>selenium</category>
-        <category>workshop</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>selenium</tag>
-        <tag>webdriver</tag>
-        <tag>phantomjs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[淘宝登录界面的编写]]></title>
-    <url>%2F2016%2F10%2F14%2F%E6%B7%98%E5%AE%9D%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%E7%9A%84%E7%BC%96%E5%86%99%2F</url>
-    <content type="text"><![CDATA[#第二次培训感悟 ##课上学习 本次课程得主要任务是完成淘宝登录页面的编写，课上学长带领我们主要完成了淘宝登录页面的主要框架的搭建，主要是.html和.css的编写。课上遇到的主要问题是，以前由于没有接触过html和css，所以刚开始对学长所讲的东西听不懂，只是简单地跟着学长抄写学长在大屏幕上写的代码，但是后来通过自己与图片的对比，渐渐了解了每一个语句它的功能，虽然说整个过程有点懵，但是最后看到那个页面的雏形，还是蛮开心的。 ##课下学习 主要遇到的问题主要是在javascript部分以及界面设计的部分，主要问题如下： （1）首先，是输入框中背景提示文字的设置。由于不知道从哪里下手，于是去网上搜了一下，得到了如下的解决方案： input type=”text” class=”form-control” placeholder=”账户（手机号)” id=”username” input type=”password” class=”form-control” placeholder=”密码” name=”password1” id=”password” 即如上面所示，在相应的输入输出框模块中添加语句placeholder=”账户（手机号)” 和placeholder=”密码”即可，需要说明的是placeholder 属性是 HTML5 中的新属性。placeholder 属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。 注释：placeholder 属性适用于以下的&lt;input&gt; 类型：text, search, url, telephone, email 以及 password。 效果如下 （2）对js完全没有接触过，不知道从哪下手。于是在网易云课堂上听了HTML+css+javascript的基础章节，对js有了初步的了解。我觉得讲的挺好的，网易云课堂html+css+js. （3）js主要控制语句的编写。由于是输入不同情况，出现不同的警告语句以及提示语句，所以采用if的控制语句，具体做法如下： if (username.value == &quot;&quot;) {//实现语句} if (!num.test(username.value)) {//实现语句} if (password.value == &quot;&quot;) {//实现语句} if (username.value !=&quot;13012345678&quot;) {//实现语句} if (password.value!= 123456) {//实现语句} else{//实现语句} （4）警告框与提示框的设置。（3）中的语句编写成功后发现，弹出的警告框如下图所示： 于是，查了一下，警告框的设置主要是采用了bookstrap的样式，在html中的具体语句如下（这里仅以其中一种警告框为例，其他的类似）： &lt;div class=&quot;alert alert-danger&quot; style=&quot;display: none; height: 27px; margin-right: 20px; margin-left: 20px; padding: 0px&quot;id=&quot;alert_warn1&quot;&gt; &lt;img src=&quot;error.png&quot; alt=&quot;warn&quot; width=&quot;22px&quot; height=&quot;22px&quot; style=&quot;color: white&quot;&gt; &lt;b&gt; style=&quot;color: #f84e4e; font-size: smaller; font-weight: 700;font-size: 15px;font-family: &apos;Microsoft YaHei UI&apos;&quot;&gt;用户名不能为空!&lt;/b&gt; &lt;/div&gt; 上边的style=”display: none;语句表示警告框的显示形式为隐藏，也就是在html界面其实看不到的。 （5）控制警告框的出现。具体实现语句如下： var warn1 = document.getElementById(&quot;alert_warn1&quot;); if (username.value == &quot;&quot;) { warn1.style.display=&quot;block&quot;;//（m） warn2.style.display=&quot;none&quot;; warn3.style.display=&quot;none&quot;; warn4.style.display=&quot;none&quot;; warn5.style.display=&quot;none&quot;; success.style.display=&quot;none&quot;; setTimeout(&quot;codefans1()&quot;,3000);//3秒 username.value.focus(); return false; } 上边的m语句即表示显示该警告框而隐藏其他警告框。 （6）将编辑好的js文件用于html文件中，主要是运用该语句 &lt;script src=&quot;js.js&quot; type=&quot;text/javascript&quot;&gt; &lt;/script&gt; 而何时用js中编写好的控制语句则用该语句： &lt;button class=&quot;btn&quot; type=&quot;button&quot; onclick=&quot;setTimeout($check(), 200);&quot; id=&quot;buttons&quot;&gt;登&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;录&lt;/button&gt; 主要是其中的onclick那一句。 （7）关于点击登录按钮0.2秒后出现警告框以及3秒后消失是这样设置的： 0.2秒后出现警告框： onclick=&quot;setTimeout($check(), 200);通过setTime函数实现。 3秒后消失： if (username.value == &quot;&quot;) { warn1.style.display=&quot;block&quot;; warn2.style.display=&quot;none&quot;; warn3.style.display=&quot;none&quot;; warn4.style.display=&quot;none&quot;; warn5.style.display=&quot;none&quot;; success.style.display=&quot;none&quot;; setTimeout(&quot;codefans1()&quot;,3000);//3秒后消失 username.value.focus(); return false; } function codefans1(){ var warn1 = document.getElementById(&quot;alert_warn1&quot;); warn1.style.display=&quot;none&quot;; }//控制消失的函数实现 （8）在设置输入手机号必须是11位数字时，我用了该语句：if(username.toString.length!=11)发现通过不了验证，就在群邮里问一下，原来username得到的不是输入框里面的信息，是通过usernme.value取出来的，而且toString 方法输出的是对应对象的信息：[object HTMLInputElement],所以这里是不对的。 ##结果展示 如下面图片所示：]]></content>
-      <categories>
-        <category>html</category>
-        <category>css</category>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>html</tag>
-        <tag>css</tag>
-        <tag>javascript</tag>
-        <tag>workshop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[我的第一次培训]]></title>
-    <url>%2F2016%2F10%2F05%2F%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9F%B9%E8%AE%AD%2F</url>
-    <content type="text"><![CDATA[Workshop第一次培训感悟体会 背景 上周日参加了学长组织的Workshop的第一次培训，第一次培训的内容是静态博客的搭建，给我们授课的是姜建林学长，在这次培训中，我遇到了许多问题，但同时也学习到了许多： 课上学习 首先，学长给我们讲述了为什么要搭建静态博客，通过几个例子，我们便很快体会到了静态博客的优点：个人的学习心得可以记录下来，以方便日后查看，同时可以方便别人观看自己的成果，自由开放的空间，可以毫无拘束的发表自己的看法，而且如果有一个属于自己域名是一件非常炫酷以及自豪的事情，想到这些，我就变得兴奋起来。 主要学到的东西：线下我们主要完成了Github的注册，ssh密钥和公钥的获取并将其复制在Github的ssh-key中，以及Hexo配置的其中一部分。遇到的问题： （1）如上图所示，在ssh配置邮箱时，要执行ssh-keygen -t rsa -C1625128973@qq.com时，报错，报错语句为：-keygen-t： command not found ，反复输了两次依旧报错，后来经过自己的查找，发现自己的命令输入出错，在-keygen 和 -t之间少了一个空格。这就告诉我在执行命令语句时一定要细心。 （2）在安装hexo时，当用Gitbash执行npm install hexo -g 之后发现页面停留在那个页面好长时间没有回应，后来，学长提示我们说可能是安装的Node.js的版本跟电脑的系统不匹配，于是我卸载了原来的Node.js，重新到官网上下载了安装包并进行安装，重新尝试，发现成功了。 （3）之后，在进行hexo的初始化时，执行hexo init 时，发现程序又报错，于是我就去重新配置了一下Node的环境变量，重新添加了Node的Path，之后重新尝试，终于成功。下图为线下学习的部分截图： 图为克隆远程仓库和提交申请成功后github的页面 图为在浏览器中输入mz233.github.io的404界面 图为hexo配置成功后，在浏览器中输入Localhost：4000后显示的界面 课下学习 主要完成的任务： 将Hexo与远程Github关联，主题的设置，多说评论的设置。 遇到的问题: 图一 图二 （1）如上图一，在执行hexo deploy命令时报错，后来重新查看了congyml文件，发现出现了图二的错误，正确的应该是： deploy： type： git reposity： git@github.com:mz233/mz233.github.io.git branch： master 而我粗心地写成了如图所示的图样。 图三 图四 图五 （2）在做步骤一的修改后，执行hexo deploy出现了图三的情况，后来看了邮件里的评论，是因为在config.yml文件配置时deploy下面的三个变量配置内容时要在其前边加一个空格，重新配置执行hexo d，hexo g之后，成功，如图四所示。 （3）图片问题，刚开始将本地图片的绝对路径弄上去之后，发现预览界面图片显示不出来，后来又尝试了将图片上传到百度图片生成图片外链，发现依旧不能成功，出现如图五的情景，于是我又到知乎上边搜了一下，找到了一个图床，将图片上传可以生成图片外链，在这里分享给大家，很好用。图床点击这里 我的意外收获 （1）知道了mkdir是新建文件夹的命令；（2）上课时学长提到了DNS，课下了解了什么是DNS；（3）了解了一下什么是URL。 我的感悟： 在这次培训中，我的感悟有很多：一如，当我第一次接触这些陌生的东西时，我应该多自己查找百度去了解它，而不是畏惧它，现在想想，从刚接触时只是简单地跟着学长说的做却从不能很确切知道这一步的目的，到现在的基本能理解前边的每一步的作用并能够独立学习一些东西，所以，陌生的东西并不可怕，只要自己按部就班地来，自己会一点点理解的。一如，要学会向其他人求助并讨论，当我的yml文件配置不成功时，我打开邮箱看到了大家的讨论并试着改了一下，对我帮助很大，同时我找到了肖滢同学，通过与她的讨论，她最终成功地帮我部署成功了，而我 也真正的明白了自己哪里出错了。所以在独立思考后还不能解决的问题，要多问，多讨论，才能最终解决。一如，要多浏览一些有用的网站，可以帮到自己，我在使用markdown时就是看了知乎上大家发的一些学习资源。 所以，只要一步步慢慢来，我相信我可以学到更多的东西！ 我在学习中参考的一些资源 link1 link2 link3 link4]]></content>
-      <categories>
-        <category>github</category>
-      </categories>
-      <tags>
-        <tag>Workshop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F25%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[php环境搭建]]></title>
+      <url>/2017/08/16/php%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<p><strong>1、    下载xammp</strong> </p>
+<p>（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。<br>（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。</p>
+<a id="more"></a>
+<p><img src="https://i.loli.net/2017/08/15/5992bfd9587f4.png" alt="b1.png"> </p>
+<p>可到其官网上下载，<a href="https://www.apachefriends.org/zh_cn/index.html" target="_blank" rel="external">下载xammp</a></p>
+<p><strong>2、    配置端口</strong></p>
+<p>下载完成后打开xammp的控制面板，点击apache和 mysql的run，观察其启动是否正常，若启动失败，一般都是因为它的端口被占用了，这时候就需要修改它的配置文件，点击其后的config按钮就可以配置了，具体的操作步骤，可以看这个人的博客：<a href="http://blog.csdn.net/kunlong0909/article/details/7716715" target="_blank" rel="external">点击这里</a></p>
+<p><strong>3、    配置虚拟地址</strong></p>
+<p>Xammp配置好以后，我们就来搭建本地虚拟地址，目的在于可以在浏览器中通过虚拟地址来查看php编程的运行结果。<br>（a）    新建一个文件夹，这个文件夹是你要放入php文件的文件夹，也就是说只有放在该文件夹中的php文件才能通过虚拟地址访问。如下图，我在d盘的xammp文件夹下的htdoc下新建了pro文件夹，用以存放我将要写的php文件，其路径为：D:\xampp\htdocs\pro</p>
+<p> <img src="https://i.loli.net/2017/08/15/5992c02b77fe8.png" alt="b2.png"></p>
+<p>（b）    接下来就要开始搭建虚拟环境了，首先，找到你刚才下载的xammp文件夹，按照这个路径D:\xampp\apache\conf\extra打开httpd-vhosts.conf,注意：最好用notepad打开。在配置文件后加入以下字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    DocumentRoot &quot;D:/xampp/htdocs/pro&quot;//注意这里填写你刚刚新建文件夹的地址</div><div class="line">    ServerName www.mz.com //这里就填写你想要搭建的虚拟地址，根据自己的喜好，随便填写</div><div class="line">    ##ErrorLog &quot;logs/dummy-host2.example.com-error.log&quot;</div><div class="line">    ##CustomLog &quot;logs/dummy-host2.example.com-access.log&quot; common</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+<p>（c）    配置本地的hosts文件，一般在c盘中，不同电脑不同，可在文件夹搜索框中搜索hosts，找到后依然用notepad++ 打开，在该配置文件中，加入以下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">127.0.0.1 www.mz.com（注意这里要和上边httpd-vhosts.conf中配置的虚拟地址相同）</div></pre></td></tr></table></figure>
+<p>(d)      现在我们就可以在刚刚新建的文件夹中写php文件来观察运行结果了。<br>      以我刚刚新建的pro文件夹为例，我在文件夹pro中新建ahello.php</p>
+<p> <img src="https://i.loli.net/2017/08/15/5992c066cc849.png" alt="b3.png"></p>
+<p>我们以notepad++打开ahello.php</p>
+<p><img src="https://i.loli.net/2017/08/15/5992c08778966.png" alt="b4.png"> </p>
+<p>保存。<br>然后在浏览器中打开，输入你刚刚配置的虚拟地址+ahello.php<br>如我的是：<a href="http://www.mz.com/ahello.php" target="_blank" rel="external">http://www.mz.com/ahello.php</a></p>
+<p> <img src="https://i.loli.net/2017/08/15/5992c0a7ddec5.png" alt="b5.png"></p>
+<p>输出正确。按照这个步骤你就可以开始php编程练习了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> php </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> php </tag>
+            
+            <tag> xammp </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Unity3D简单游戏演示]]></title>
+      <url>/2016/10/28/Unity3D%E7%AE%80%E5%8D%95%E6%B8%B8%E6%88%8F%E6%BC%94%E7%A4%BA/</url>
+      <content type="html"><![CDATA[<hr>
+<p><strong>首先是环境的安装</strong>：</p>
+<p>UNity3d的安装，</p>
+<p><a href="http://www.cgjoy.com/thread-103460-1-1.html" target="_blank" rel="external">下载安装包点这里</a></p>
+<p>破解：打开下载的unpch95_unityCrack文件夹，拷贝Unity 4.x Pro Patch.exe到unity安装目录下Editor文件夹下面，然后运行，点Patch按钮，读完条之后再点Ce Lic按钮，破解完成。</p>
+<p>配置环境：打开破解好的unity3d，点Edit选项卡，选择Preferences…找到External Tools，会看到External Script Editor是Monodevelop，点Browser选择自己喜欢的Editor，我自己用的是vs2010，完成以后就可以创建新工程了。</p>
+<p>##<strong>主要完成的任务</strong></p>
+<p>一个是人物的移动；第二个是人物动画的添加。</p>
+<a id="more"></a>
+<p><strong>人物的移动</strong></p>
+<p>主要是靠一个叫做player的文件来控制，点击project视窗中的script穿件c#文件，命名为player文件，其代码即注释如下：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class player : MonoBehaviour
+{
+    public float walkSpeed;//用来控制角色移动的速度
+     // Use this for initialization
+
+    void Start()
+    {
+        walkSpeed = 5.0f;
+    }
+    void Update()
+    {
+        Vector3 direction = Input.GetAxis(&quot;Horizontal&quot;) * transform.right +
+        Input.GetAxis(&quot;Vertical&quot;) * transform.forward;
+        transform.position += walkSpeed * Time.deltaTime * direction;//控制角色的位置移动。
+    }
+}
+</code></pre><p>将该脚本与人物关联：直接拖动player文件到player上去，此时点击player，可以看到其Inspector框最下边Add Component上边多了player的控制行，此时点击运行游戏，按上下左右键人物即可前后左右移动。</p>
+<p><strong>动画的添加</strong></p>
+<p>主要是通过另一个脚本语言，player_animato控制，其代码实现与注释如下：</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class player_animator : MonoBehaviour {
+public Animator animator;
+private Vector3 lastPosition;
+private float Speed;//移动速度的控制
+private float Angle;
+// Use this for initialization
+void Start () {
+    lastPosition = transform.position;
+}
+
+// Update is called once per frame
+void Update () {
+    Vector3 Velocity = (transform.position - lastPosition) / Time.deltaTime;//下一帧移动位置的确定
+    Vector3 localVelocity = transform.InverseTransformDirection(Velocity);//自身坐标系的三维变量
+    localVelocity.y = 0;
+    Speed = localVelocity.magnitude;
+    Angle = (HorizontalAngle(localVelocity)+360f)%360;
+
+    animator.SetFloat(&quot;Speed&quot;,Speed);
+    animator.SetFloat(&quot;Angle&quot;,Angle);
+
+    lastPosition = transform.position;
+
+}
+float HorizontalAngle(Vector3 localVelocity)
+{
+    float angle = Mathf.Atan2(localVelocity.z, localVelocity.x) * Mathf.Rad2Deg;//反正切函数，第一个参数为对边，第二个为邻边
+    return angle;
+}
+}
+</code></pre><p>具体Animator的控制，<a href="http://www.imooc.com/learn/313" target="_blank" rel="external">点击这里</a></p>
+<p><strong>遇到的问题</strong></p>
+<p>在Animator中，添加Speed，变量的时候，写成了speed与前边的脚本文件不一致，导致动画效果出不来。</p>
+<p><strong>感悟与体会</strong></p>
+<p>这次培训，整体上感觉蛮好玩的，因为通过自己的编写操作，人物就自己动起来了，以前只是玩游戏，现在真正地让自己去设置的时候，感觉还蛮新奇好玩的，但是由于自己以后可能不会从事游戏这个方向，所以课下也就没有花很多时间去学习它，bullet那一部分也没有自己去钻研，但是，这次的培训让我了解了一下简单游戏的诞生过程，还是蛮开心的。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Unity3D </category>
+            
+            <category> workshop </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Unity3D </tag>
+            
+            <tag> Game </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[python爬虫之教务处成绩]]></title>
+      <url>/2016/10/22/python%E7%88%AC%E8%99%AB%E4%B9%8B%E6%95%99%E5%8A%A1%E5%A4%84%E6%88%90%E7%BB%A9/</url>
+      <content type="html"><![CDATA[<p><strong>学习过程</strong></p>
+<p>这次作业主要是python爬虫，由于之前并没有接触过这个东西，所以我先到网上简单地学习了一下python语言，具体的学习网站<a href="http://www.runoob.com/python/python-tuples.html" target="_blank" rel="external">python基础教程-菜鸟教程</a></p>
+<p><strong>操作部分</strong></p>
+<p>安装环境：pycharm编程环境+anaconda包集+selenium库+phantomJS无界面爬虫浏览器</p>
+<p>在pycharm中新建.py文件开始编程。</p>
+<p>导入部分：</p>
+<a id="more"></a>
+<pre><code>from selenium import webdriver #导入部分
+from bs4 import BeautifulSoup
+import xlwt#制成excel表格的一个库
+import string
+phantomjs_path=&apos;C:\Users\mazhuang\Desktop\Workshop\phantomjs-2.1.1-windows/bin/phantomjs.exe&apos; #加载浏览器驱动，无界面爬虫浏览器在电脑中的路径
+driver = webdriver.PhantomJS(phantomjs_path)
+</code></pre><p>打开网页：</p>
+<pre><code>URL = &apos;目标网址&apos; #网页地址，即你所要抓取数据的网页
+driver.get(URL)#返回网页地址
+driver.implicitly_wait(10)#设置隐式等待时长
+</code></pre><p>模拟登陆：</p>
+<p>首先，要进行元素的定位。</p>
+<p>单个元素定位：</p>
+<pre><code>find_element_by_id
+find_element_by_name
+find_element_by_xpath
+find_element_by_link_text
+find_element_by_partial_link_text
+find_element_by_tag_name
+find_element_by_class_name
+find_element_by_css_selector
+</code></pre><p>多个元素定位：</p>
+<pre><code>find_elements_by_name
+find_elements_by_xpath
+find_elements_by_link_text
+find_elements_by_partial_link_text
+find_elements_by_tag_name
+find_elements_by_class_name
+find_elements_by_css_selector
+</code></pre><p>其中，id，name，xpath等都是要从网页那里通过检查元素的得到的标签。比如说，要模拟登陆首先要进行网页上学号和密码输入框的定位，此时，用浏览器打开目标网页，右键单击要输入学号的地方，检查源，得到其id，name等信息在运用上边提到的函数进行元素定位。</p>
+<p>页面的交互，我主要用到了这两个函数：</p>
+<pre><code>click()//模拟鼠标的左键点击
+send_key(value)//类似于键盘传输值的信息
+submit()//模拟提交
+</code></pre><p>如：要进行学号的输入：</p>
+<pre><code>driver.find_element_by_id(&quot;textfield&quot;).send_keys(&apos;学号&apos;)//textfiled即为通过定位元素扎到的标签，用send_key(value)将学号信息传输过去
+</code></pre><p>要进行历史成绩查询的点击：</p>
+<pre><code>driver.find_element_by_link_text(&apos;历史成绩查询&apos;).click()//这里主要演示click的用法，submit()用法类似
+</code></pre><p>用BeautifulSoup来抓取解析自己所需要的信息：</p>
+<pre><code>lscj = driver.find_element_by_id(&apos;undefined&apos;).get_attribute(&quot;innerHTML&quot;)#找到要抓取的模块
+Soup = BeautifulSoup(lscj, &apos;lxml&apos;)
+</code></pre><p>可以用print Soup pretiffy()来运行一下看是不是自己需要的信息。</p>
+<p><strong>将抓取到的信息写进excel表格</strong></p>
+<p>首先要引入xlwt库</p>
+<pre><code>import xlwt
+</code></pre><p>excel的写入</p>
+<pre><code>exl = xlwt.Workbook(encoding=&apos;utf-8&apos;,style_compression=0)//创建用于写excel的exl对象其中encoding=‘utf-8’是防止解析出来的中文乱码
+sheet = exl.add_sheet(&apos;mazh&apos;, cell_overwrite_ok=True)//创建表单，并且声明为可以覆盖
+</code></pre><p>然后，通过sheet.write(列，行，内容)语句将所抓取的数据写进去。在进行数据写入的时候需要先找到要录入表格元素的标签，然后通过循环语句将要写入的数据写进表格。找到元素标签，主要运用这个语句：</p>
+<pre><code>Soup.find_all(&apos;标签名称&apos;)
+用 变量.string 来获取该处的内容
+</code></pre><p>别忘了用.decode(‘utf-8’)来解码。</p>
+<p>最后保存</p>
+<pre><code>exl.save(&quot;文件名.xls&quot;)
+</code></pre><p><strong>遇到的问题：</strong></p>
+<p>(1)一开始，对一些定位元素的函数不会用，于是我就搜了一些运用这些函数的实例，这个实例运用推荐给大家<a href="http://www.cnblogs.com/yufeihlf/p/5717291.html" target="_blank" rel="external">定位元素算法的实例运用</a></p>
+<p>(2)对将信息写入excel表格毫无头绪，于是就搜了一下这个网站<a href="http://blog.csdn.net/qq_16103331/article/details/51374497" target="_blank" rel="external">python爬虫excel的读写</a></p>
+<p>(3)一开始所保存的表格出来是乱码的，在问了同学之后，用decode(‘utf-8’)先解码再打印就好了。</p>
+<p><strong>还未解决的问题</strong></p>
+<p>由于我的成绩有22条，而页面上显示了20条，需要将页面显示数设置成50，我尝试用了各种方法，都没有成功，虽然并没有报错，但是页面效果并无反应。关于下拉框选择我尝试的方法如下<a href="http://blog.csdn.net/lilinfang90/article/details/17400681" target="_blank" rel="external">网页1</a><a href="http://www.cnblogs.com/meitian/p/3683372.html" target="_blank" rel="external">网页2</a></p>
+<p><strong>感悟及体会</strong></p>
+<p>之前没有接触过python，所以对于很多东西都无从下手，但是在自我摸索的过程中，虽然很费时费力，但是真正自学到东西还是蛮开心的，再者，就是对于自己一些连方法都看不懂的语句，要多找一些例子来看一下，在例子中更能理解其如何运用。等自己真正把这件事做出来的时候，就会觉得，其实也没什么难得。</p>
+<p>最后十分感谢，在我自己实在摸索不出来的时候，肖同学对我的帮助，在这里推荐一下她的博客，<a href="https://x1ao-1997.github.io/" target="_blank" rel="external">博客</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+            <category> selenium </category>
+            
+            <category> workshop </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> selenium </tag>
+            
+            <tag> webdriver </tag>
+            
+            <tag> phantomjs </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[淘宝登录界面的编写]]></title>
+      <url>/2016/10/14/%E6%B7%98%E5%AE%9D%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%E7%9A%84%E7%BC%96%E5%86%99/</url>
+      <content type="html"><![CDATA[<p>#<strong>第二次培训感悟</strong></p>
+<p>##<strong>课上学习</strong></p>
+<p>本次课程得主要任务是完成淘宝登录页面的编写，课上学长带领我们主要完成了淘宝登录页面的主要框架的搭建，主要是.html和.css的编写。课上遇到的主要问题是，以前由于没有接触过html和css，所以刚开始对学长所讲的东西听不懂，只是简单地跟着学长抄写学长在大屏幕上写的代码，但是后来通过自己与图片的对比，渐渐了解了每一个语句它的功能，虽然说整个过程有点懵，但是最后看到那个页面的雏形，还是蛮开心的。</p>
+<p>##<strong>课下学习</strong></p>
+<p>主要遇到的问题主要是在javascript部分以及界面设计的部分，主要问题如下：</p>
+<a id="more"></a>
+<p>（1）首先，是输入框中背景提示文字的设置。由于不知道从哪里下手，于是去网上搜了一下，得到了如下的解决方案：</p>
+<blockquote>
+<p>input type=”text” class=”form-control” placeholder=”账户（手机号)” id=”username”</p>
+<p>input type=”password” class=”form-control” placeholder=”密码” name=”password1” id=”password”</p>
+</blockquote>
+<p>即如上面所示，在相应的输入输出框模块中添加语句placeholder=”账户（手机号)” 和placeholder=”密码”即可，需要说明的是placeholder 属性是 HTML5 中的新属性。placeholder 属性提供可描述输入字段预期值的提示信息（hint）。<br>该提示会在输入字段为空时显示，并会在字段获得焦点时消失。</p>
+<p>注释：placeholder 属性适用于以下的<code>&lt;input&gt; 类型：text, search, url, telephone, email 以及 password。</code></p>
+<p>效果如下</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800da940b220.png" alt="图一"></p>
+<p>（2）对js完全没有接触过，不知道从哪下手。于是在网易云课堂上听了HTML+css+javascript的基础章节，对js有了初步的了解。我觉得讲的挺好的，<a href="http://study.163.com/course/courseLearn.htm?courseId=1002905013#/learn/video?lessonId=1003293212&amp;courseId=1002905013" target="_blank" rel="external">网易云课堂html+css+js</a>.</p>
+<p>（3）js主要控制语句的编写。由于是输入不同情况，出现不同的警告语句以及提示语句，所以采用if的控制语句，具体做法如下：</p>
+<pre><code>if (username.value == &quot;&quot;) {//实现语句}
+if (!num.test(username.value)) {//实现语句}
+if (password.value == &quot;&quot;) {//实现语句}
+if (username.value !=&quot;13012345678&quot;) {//实现语句}
+if (password.value!= 123456) {//实现语句}
+else{//实现语句}
+</code></pre><p>（4）警告框与提示框的设置。（3）中的语句编写成功后发现，弹出的警告框如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800daefa82ae.png" alt="7.png"></p>
+<p>于是，查了一下，警告框的设置主要是采用了bookstrap的样式，在html中的具体语句如下（这里仅以其中一种警告框为例，其他的类似）：</p>
+<pre><code>&lt;div class=&quot;alert alert-danger&quot; style=&quot;display: none; height: 27px; margin-right: 20px; margin-left: 20px; padding: 0px&quot;id=&quot;alert_warn1&quot;&gt;
+&lt;img src=&quot;error.png&quot; alt=&quot;warn&quot; width=&quot;22px&quot; height=&quot;22px&quot; style=&quot;color: white&quot;&gt;
+&lt;b&gt; style=&quot;color: #f84e4e; font-size: smaller; font-weight: 700;font-size: 15px;font-family: &apos;Microsoft YaHei UI&apos;&quot;&gt;用户名不能为空!&lt;/b&gt;
+&lt;/div&gt;
+</code></pre><p>上边的style=”display: none;语句表示警告框的显示形式为隐藏，也就是在html界面其实看不到的。</p>
+<p>（5）控制警告框的出现。具体实现语句如下：</p>
+<pre><code>var warn1 = document.getElementById(&quot;alert_warn1&quot;);
+ if (username.value == &quot;&quot;) {
+    warn1.style.display=&quot;block&quot;;//（m）
+    warn2.style.display=&quot;none&quot;;
+    warn3.style.display=&quot;none&quot;;
+    warn4.style.display=&quot;none&quot;;
+    warn5.style.display=&quot;none&quot;;
+    success.style.display=&quot;none&quot;;
+    setTimeout(&quot;codefans1()&quot;,3000);//3秒
+    username.value.focus();
+   return false;
+}
+</code></pre><p>上边的m语句即表示显示该警告框而隐藏其他警告框。</p>
+<p>（6）将编辑好的js文件用于html文件中，主要是运用该语句</p>
+<pre><code>&lt;script src=&quot;js.js&quot; type=&quot;text/javascript&quot;&gt;
+    &lt;/script&gt;
+</code></pre><p>而何时用js中编写好的控制语句则用该语句：</p>
+<pre><code>&lt;button class=&quot;btn&quot; type=&quot;button&quot; onclick=&quot;setTimeout($check(), 200);&quot; id=&quot;buttons&quot;&gt;登&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;录&lt;/button&gt;
+</code></pre><p>主要是其中的onclick那一句。</p>
+<p>（7）关于点击登录按钮0.2秒后出现警告框以及3秒后消失是这样设置的：</p>
+<p>0.2秒后出现警告框：</p>
+<pre><code>onclick=&quot;setTimeout($check(), 200);通过setTime函数实现。
+</code></pre><p>3秒后消失：</p>
+<pre><code>if (username.value == &quot;&quot;) {
+   warn1.style.display=&quot;block&quot;;
+   warn2.style.display=&quot;none&quot;;
+   warn3.style.display=&quot;none&quot;;
+   warn4.style.display=&quot;none&quot;;
+   warn5.style.display=&quot;none&quot;;
+   success.style.display=&quot;none&quot;;
+   setTimeout(&quot;codefans1()&quot;,3000);//3秒后消失
+   username.value.focus();
+  return false;
+ }
+
+ function codefans1(){
+   var warn1 = document.getElementById(&quot;alert_warn1&quot;);
+    warn1.style.display=&quot;none&quot;;
+ }//控制消失的函数实现
+</code></pre><p>（8）在设置输入手机号必须是11位数字时，我用了该语句：if(username.toString.length!=11)发现通过不了验证，就在群邮里问一下，原来username得到的不是输入框里面的信息，是通过usernme.value取出来的，而且toString 方法输出的是对应对象的信息：[object HTMLInputElement],所以这里是不对的。</p>
+<p>##<strong>结果展示</strong></p>
+<p>如下面图片所示：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/14/5800db4b54d0c.png" alt="3.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db1adf916.png" alt="1.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db24d6092.png" alt="2.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2608344.png" alt="3.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2876eb1.png" alt="4.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2992876.png" alt="5.png"><br><img src="https://ooo.0o0.ooo/2016/10/14/5800db2aca30c.png" alt="6.png"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> html </category>
+            
+            <category> css </category>
+            
+            <category> javascript </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> html </tag>
+            
+            <tag> css </tag>
+            
+            <tag> javascript </tag>
+            
+            <tag> workshop </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[我的第一次培训]]></title>
+      <url>/2016/10/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9F%B9%E8%AE%AD/</url>
+      <content type="html"><![CDATA[<p><strong>Workshop第一次培训感悟体会</strong></p>
+<p><strong>背景</strong></p>
+<p>上周日参加了学长组织的Workshop的第一次培训，第一次培训的内容是静态博客的搭建，给我们授课的是姜建林学长，在这次培训中，我遇到了许多问题，但同时也学习到了许多：</p>
+<p><strong>课上学习</strong></p>
+<p>首先，学长给我们讲述了为什么要搭建静态博客，通过几个例子，我们便很快体会到了静态博客的优点：个人的学习心得可以记录下来，以方便日后查看，同时可以方便别人观看自己的成果，自由开放的空间，可以毫无拘束的发表自己的看法，而且如果有一个属于自己域名是一件非常炫酷以及自豪的事情，想到这些，我就变得兴奋起来。</p>
+<p><strong>主要学到的东西</strong>：线下我们主要完成了Github的注册，ssh密钥和公钥的获取并将其复制在Github的ssh-key中，以及Hexo配置的其中一部分。<br><a id="more"></a><br><strong>遇到的问题</strong>：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a4028bdd0.jpg" alt="2.jpg"></p>
+<p>（1）如上图所示，在ssh配置邮箱时，要执行ssh-keygen -t rsa -C1625128973@qq.com时，报错，报错语句为：-keygen-t： command not found ，反复输了两次依旧报错，后来经过自己的查找，发现自己的命令输入出错，在-keygen 和 -t之间少了一个空格。这就告诉我在执行命令语句时一定要细心。</p>
+<p>（2）在安装hexo时，当用Gitbash执行npm install hexo -g 之后发现页面停留在那个页面好长时间没有回应，后来，学长提示我们说可能是安装的Node.js的版本跟电脑的系统不匹配，于是我卸载了原来的Node.js，重新到官网上下载了安装包并进行安装，重新尝试，发现成功了。</p>
+<p>（3）之后，在进行hexo的初始化时，执行hexo init 时，发现程序又报错，于是我就去重新配置了一下Node的环境变量，重新添加了Node的Path，之后重新尝试，终于成功。下图为线下学习的部分截图：</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a2f98ee53.png" alt="1.png"></p>
+<p><em>图为克隆远程仓库和提交申请成功后github的页面</em></p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a45c6d1d4.png" alt="3.png"></p>
+<p><em>图为在浏览器中输入mz233.github.io的404界面</em></p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a48a3f47b.jpg" alt="4.jpg"></p>
+<p><em>图为hexo配置成功后，在浏览器中输入Localhost：4000后显示的界面</em></p>
+<p><strong>课下学习</strong></p>
+<p><strong>主要完成的任务</strong>：</p>
+<p>将Hexo与远程Github关联，主题的设置，多说评论的设置。</p>
+<p><strong>遇到的问题</strong>:</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a4ed85378.jpg" alt="6.jpg"></p>
+<p><em>图一</em></p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a54ba2017.png" alt="7.png"></p>
+<p><em>图二</em></p>
+<p>（1）如上图一，在执行hexo deploy命令时报错，后来重新查看了congyml文件，发现出现了图二的错误，正确的应该是：</p>
+<p>deploy：</p>
+<p>type： git</p>
+<p>reposity： git@github.com:mz233/mz233.github.io.git</p>
+<p>branch： master</p>
+<p>而我粗心地写成了如图所示的图样。</p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a57d2d97c.png" alt="8.png"></p>
+<p><em>图三</em></p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a5a844add.png" alt="5.png"></p>
+<p><em>图四</em></p>
+<p><img src="https://ooo.0o0.ooo/2016/10/05/57f4a86e17b23.png" alt="9.png"></p>
+<p><em>图五</em></p>
+<p>（2）在做步骤一的修改后，执行hexo deploy出现了图三的情况，后来看了邮件里的评论，是因为在config.yml文件配置时deploy下面的三个变量配置内容时要在其前边加一个空格，重新配置执行hexo d，hexo g之后，成功，如图四所示。</p>
+<p>（3）图片问题，刚开始将本地图片的绝对路径弄上去之后，发现预览界面图片显示不出来，后来又尝试了将图片上传到百度图片生成图片外链，发现依旧不能成功，出现如图五的情景，于是我又到知乎上边搜了一下，找到了一个图床，将图片上传可以生成图片外链，在这里分享给大家，很好用。<a href="https://sm.ms/#" target="_blank" rel="external">图床点击这里</a></p>
+<p><strong>我的意外收获</strong></p>
+<p>（1）知道了mkdir是新建文件夹的命令；<br>（2）上课时学长提到了DNS，课下了解了什么是DNS；<br>（3）了解了一下什么是URL。</p>
+<p><strong>我的感悟：</strong></p>
+<p>在这次培训中，我的感悟有很多：一如，当我第一次接触这些陌生的东西时，我应该多自己查找百度去了解它，而不是畏惧它，现在想想，从刚接触时只是简单地跟着学长说的做却从不能很确切知道这一步的目的，到现在的基本能理解前边的每一步的作用并能够独立学习一些东西，所以，陌生的东西并不可怕，只要自己按部就班地来，自己会一点点理解的。一如，要学会向其他人求助并讨论，当我的yml文件配置不成功时，我打开邮箱看到了大家的讨论并试着改了一下，对我帮助很大，同时我找到了肖滢同学，通过与她的讨论，她最终成功地帮我部署成功了，而我 也真正的明白了自己哪里出错了。所以在独立思考后还不能解决的问题，要多问，多讨论，才能最终解决。一如，要多浏览一些有用的网站，可以帮到自己，我在使用markdown时就是看了知乎上大家发的一些学习资源。</p>
+<p>所以，只要一步步慢慢来，我相信我可以学到更多的东西！</p>
+<p><strong>我在学习中参考的一些资源</strong></p>
+<p><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">link1</a></p>
+<p><a href="http://cnfeat.com/blog/2014/05/10/how-to-build-a-blog/" target="_blank" rel="external">link2</a></p>
+<p><a href="http://www.zhihu.com/question/20409634" target="_blank" rel="external">link3</a></p>
+<p><a href="http://www.tuicool.com/articles/zeIZJzv" target="_blank" rel="external">link4</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> github </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Workshop </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2016/09/25/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
 </search>
