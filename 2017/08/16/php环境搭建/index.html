@@ -96,24 +96,21 @@
 
 
 
-<meta name="description" content="1、    下载xammp 
-（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
+<meta name="description" content="1、    下载xammp（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php环境搭建">
 <meta property="og:url" content="http://yoursite.com/2017/08/16/php环境搭建/index.html">
 <meta property="og:site_name" content="mz">
-<meta property="og:description" content="1、    下载xammp 
-（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
+<meta property="og:description" content="1、    下载xammp（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
 <meta property="og:image" content="https://i.loli.net/2017/08/15/5992bfd9587f4.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/15/5992c02b77fe8.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/15/5992c066cc849.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/15/5992c08778966.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/15/5992c0a7ddec5.png">
-<meta property="og:updated_time" content="2017-08-16T02:08:32.389Z">
+<meta property="og:updated_time" content="2017-08-19T04:01:57.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php环境搭建">
-<meta name="twitter:description" content="1、    下载xammp 
-（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
+<meta name="twitter:description" content="1、    下载xammp（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。">
 <meta name="twitter:image" content="https://i.loli.net/2017/08/15/5992bfd9587f4.png">
 
 
@@ -415,15 +412,12 @@
       
 
       
-        <p><strong>1、    下载xammp</strong> </p>
-<p>（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。<br>（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。</p>
+        <h2 id="1、-下载xammp"><a href="#1、-下载xammp" class="headerlink" title="1、    下载xammp"></a>1、    下载xammp</h2><p>（a）    最好不要下载最新的版本，因为新版本与PhpStorm等编程环境会存在不兼容问题，老是会出现一些莫名其妙的问题，所以建议下载低版本。<br>（b）    由于xammp已经把mysql 和 apache等综合在一起了，不需要再去一个个下载，其还有控制面板，用起来方便多了。</p>
 <a id="more"></a>
 <p><img src="https://i.loli.net/2017/08/15/5992bfd9587f4.png" alt="b1.png"> </p>
 <p>可到其官网上下载，<a href="https://www.apachefriends.org/zh_cn/index.html" target="_blank" rel="external">下载xammp</a></p>
-<p><strong>2、    配置端口</strong></p>
-<p>下载完成后打开xammp的控制面板，点击apache和 mysql的run，观察其启动是否正常，若启动失败，一般都是因为它的端口被占用了，这时候就需要修改它的配置文件，点击其后的config按钮就可以配置了，具体的操作步骤，可以看这个人的博客：<a href="http://blog.csdn.net/kunlong0909/article/details/7716715" target="_blank" rel="external">点击这里</a></p>
-<p><strong>3、    配置虚拟地址</strong></p>
-<p>Xammp配置好以后，我们就来搭建本地虚拟地址，目的在于可以在浏览器中通过虚拟地址来查看php编程的运行结果。<br>（a）    新建一个文件夹，这个文件夹是你要放入php文件的文件夹，也就是说只有放在该文件夹中的php文件才能通过虚拟地址访问。如下图，我在d盘的xammp文件夹下的htdoc下新建了pro文件夹，用以存放我将要写的php文件，其路径为：D:\xampp\htdocs\pro</p>
+<h2 id="2、-配置端口"><a href="#2、-配置端口" class="headerlink" title="2、    配置端口"></a>2、    配置端口</h2><p>下载完成后打开xammp的控制面板，点击apache和 mysql的run，观察其启动是否正常，若启动失败，一般都是因为它的端口被占用了，这时候就需要修改它的配置文件，点击其后的config按钮就可以配置了，具体的操作步骤，可以看这个人的博客：<a href="http://blog.csdn.net/kunlong0909/article/details/7716715" target="_blank" rel="external">点击这里</a></p>
+<h2 id="3、-配置虚拟地址"><a href="#3、-配置虚拟地址" class="headerlink" title="3、    配置虚拟地址"></a>3、    配置虚拟地址</h2><p>Xammp配置好以后，我们就来搭建本地虚拟地址，目的在于可以在浏览器中通过虚拟地址来查看php编程的运行结果。<br>（a）    新建一个文件夹，这个文件夹是你要放入php文件的文件夹，也就是说只有放在该文件夹中的php文件才能通过虚拟地址访问。如下图，我在d盘的xammp文件夹下的htdoc下新建了pro文件夹，用以存放我将要写的php文件，其路径为：D:\xampp\htdocs\pro</p>
 <p> <img src="https://i.loli.net/2017/08/15/5992c02b77fe8.png" alt="b2.png"></p>
 <p>（b）    接下来就要开始搭建虚拟环境了，首先，找到你刚才下载的xammp文件夹，按照这个路径D:\xampp\apache\conf\extra打开httpd-vhosts.conf,注意：最好用notepad打开。在配置文件后加入以下字段：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    DocumentRoot &quot;D:/xampp/htdocs/pro&quot;//注意这里填写你刚刚新建文件夹的地址</div><div class="line">    ServerName www.mz.com //这里就填写你想要搭建的虚拟地址，根据自己的喜好，随便填写</div><div class="line">    ##ErrorLog &quot;logs/dummy-host2.example.com-error.log&quot;</div><div class="line">    ##CustomLog &quot;logs/dummy-host2.example.com-access.log&quot; common</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
@@ -555,8 +549,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ooo.0o0.ooo/2016/10/05/57f4b04b333a2.jpeg"
@@ -671,6 +674,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-下载xammp"><span class="nav-text">1、    下载xammp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-配置端口"><span class="nav-text">2、    配置端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、-配置虚拟地址"><span class="nav-text">3、    配置虚拟地址</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
