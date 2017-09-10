@@ -108,7 +108,7 @@
 创建版本库如果要使用git，需要首先在文件夹中使用以下命令创建git版本库：1git init
 创建成功，会在文件夹中显示一个.git的文件夹，这就是初始化的git仓库。
 添加文件到git仓库添加文件到git仓库分为两步：（1）使用以下命令将文件添加到git仓库的暂存区，该命令可反复多次使用，添加多个文">
-<meta property="og:updated_time" content="2017-09-10T10:38:38.400Z">
+<meta property="og:updated_time" content="2017-09-10T10:45:38.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令总结">
 <meta name="twitter:description" content="最近看了廖雪峰老师的git系统教程，下面对于经常会用到的git命令进行精简总结，便于以后查阅：
@@ -435,12 +435,12 @@
 <p>(3)重返未来，当你版本回退之后，你发现版本回退错误，要回到刚刚那个版本，那么你就需要用以下命令找到未来的commit_id:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git relog</div></pre></td></tr></table></figure>
 <p>该命令可以查看提交历史，以便确定要回退到哪个版本，然后在用git reset –hard commit_id穿越即可。</p>
-<h2 id="管理修改-amp-撤销修改"><a href="#管理修改-amp-撤销修改" class="headerlink" title="管理修改&amp;撤销修改"></a>管理修改&amp;撤销修改</h2><p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令：</p>
+<h2 id="3、管理修改-amp-撤销修改"><a href="#3、管理修改-amp-撤销修改" class="headerlink" title="3、管理修改&amp;撤销修改"></a>3、管理修改&amp;撤销修改</h2><p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout --file</div></pre></td></tr></table></figure>
 <p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD file</div></pre></td></tr></table></figure>
 <p>就回到了场景1，第二步按场景1操作。</p>
-<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm filename</div></pre></td></tr></table></figure>
+<h2 id="4、删除文件"><a href="#4、删除文件" class="headerlink" title="4、删除文件"></a>4、删除文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm filename</div></pre></td></tr></table></figure>
 <p>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，<br>但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容<br>如果是想要真正删除，git rm filename之后 再commit一下就行了，但是如果你是误删的，那么git checkout – filename就可以了。</p>
 <h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><h2 id="关联远程仓库"><a href="#关联远程仓库" class="headerlink" title="关联远程仓库"></a>关联远程仓库</h2><p>很多时候你需要关联一个远程仓库：<br>要关联一个远程库，使用命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@server-name:path/repo-name.git</div></pre></td></tr></table></figure>
@@ -474,14 +474,14 @@
 <p>抓取远程的新提交；<br>在本地创建和远程分支对应的分支，使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b branch-name origin/branch-name</div></pre></td></tr></table></figure></p>
 <p>本地和远程分支的名称最好一致；<br>建立本地分支和远程分支的关联，使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch --set-upstream branch-name origin/branch-name</div></pre></td></tr></table></figure></p>
 <p>从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</p>
-<p>标签管理<br>命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag &lt;name&gt;</div><div class="line">或</div><div class="line">git tag &lt;name&gt; commit_id</div></pre></td></tr></table></figure></p>
+<h1 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag &lt;name&gt;</div><div class="line">或</div><div class="line">git tag &lt;name&gt; commit_id</div></pre></td></tr></table></figure>
 <p>用于新建一个标签，默认为HEAD，也可以指定一个commit id：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot; commit_id</div><div class="line">或</div><div class="line">git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</div></pre></td></tr></table></figure></p>
 <p>用于指定标签信息；</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;</div><div class="line">或</div><div class="line">git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot; commit_id</div></pre></td></tr></table></figure>
 <p>用于用PGP签名标签；</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag</div></pre></td></tr></table></figure>
 <p>可以查看所有标签。</p>
-<p>15、<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin &lt;tagname&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin &lt;tagname&gt;</div></pre></td></tr></table></figure>
 <p>用于推送一个本地标签；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --tags</div></pre></td></tr></table></figure></p>
 <p>用于推送全部未推送过的本地标签；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag -d &lt;tagname&gt;</div></pre></td></tr></table></figure></p>
 <p>用以删除一个本地标签。</p>
@@ -737,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建版本库"><span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加文件到git仓库"><span class="nav-text">添加文件到git仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时光穿梭机"><span class="nav-text">时光穿梭机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、两个常用命令："><span class="nav-text">1、两个常用命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、版本的切换"><span class="nav-text">2、版本的切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理修改-amp-撤销修改"><span class="nav-text">管理修改&撤销修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除文件"><span class="nav-text">删除文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联远程仓库"><span class="nav-text">关联远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆仓库"><span class="nav-text">克隆仓库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支管理"><span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建与合并分支："><span class="nav-text">创建与合并分支：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建版本库"><span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加文件到git仓库"><span class="nav-text">添加文件到git仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时光穿梭机"><span class="nav-text">时光穿梭机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、两个常用命令："><span class="nav-text">1、两个常用命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、版本的切换"><span class="nav-text">2、版本的切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、管理修改-amp-撤销修改"><span class="nav-text">3、管理修改&撤销修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、删除文件"><span class="nav-text">4、删除文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联远程仓库"><span class="nav-text">关联远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆仓库"><span class="nav-text">克隆仓库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支管理"><span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建与合并分支："><span class="nav-text">创建与合并分支：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标签管理"><span class="nav-text">标签管理</span></a></li></ol></div>
             
 
           </div>
