@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AI,神经网咯," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mz" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://i.loli.net/2017/08/18/5996739183fc9.jpg?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="近日读了Michael Nielsen 的 Neural Networks and Deep Learning 这本书，之所以选择这本书来学习，是因为这本书在篇幅上比较短，同时，其对于神经网络和深度学习这块做出了整体性的概述，对于我这样的AI小白来说，先了解整体比关注细节更为重要，因此我选择了这本书作为入门资料。
+我从以下几个方面总结了这本书：神经网络的相关概念、利用神经网络识别手写数字Demo演">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Neural Networks and Deep Learning》学习总结">
+<meta property="og:url" content="http://yoursite.com/2019/08/04/《Neural Networks and Deep Learning》 学习总结/index.html">
+<meta property="og:site_name" content="mz">
+<meta property="og:description" content="近日读了Michael Nielsen 的 Neural Networks and Deep Learning 这本书，之所以选择这本书来学习，是因为这本书在篇幅上比较短，同时，其对于神经网络和深度学习这块做出了整体性的概述，对于我这样的AI小白来说，先了解整体比关注细节更为重要，因此我选择了这本书作为入门资料。
+我从以下几个方面总结了这本书：神经网络的相关概念、利用神经网络识别手写数字Demo演">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mjzubv8qj309e02e0sr.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk0jyungj308003st8q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk2md175j306w022q2w.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk1lz6epj30a6030t8r.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5mk1yodqnj30a60483yl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk383mi4j304m01c746.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mk3vjhmpj30d807qdg0.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mdci93gej30f407w3z2.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mk6629fzj308801a749.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mdkwxaz6j30gu09gdgo.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5mk6yztlfj308k01odfs.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5mi5hgunjj30e20bqjsa.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk7dr2m5j305q01kjrb.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk8hg3rsj303e0120sm.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk8rmy83j303g016dfq.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk9548jmj3036010q2t.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mkf5adojj308o00s3yg.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mkhutbt0j304800udfq.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mifpa6ruj30ga0gqtb1.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5miha95aaj30is0aimxq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5miwmium1j30hy0iqjtz.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5mj3y8qrij30fk0gcjtm.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mkj4iggpj307a01adfr.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5mkkwvswqj305o01g0so.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mklghb30j305a01c0so.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5mkmk2vehj305o020gll.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5mkn3tcpjj30be01eweh.jpg">
+<meta property="og:updated_time" content="2019-08-04T04:56:49.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Neural Networks and Deep Learning》学习总结">
+<meta name="twitter:description" content="近日读了Michael Nielsen 的 Neural Networks and Deep Learning 这本书，之所以选择这本书来学习，是因为这本书在篇幅上比较短，同时，其对于神经网络和深度学习这块做出了整体性的概述，对于我这样的AI小白来说，先了解整体比关注细节更为重要，因此我选择了这本书作为入门资料。
+我从以下几个方面总结了这本书：神经网络的相关概念、利用神经网络识别手写数字Demo演">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5mjzubv8qj309e02e0sr.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/04/《Neural Networks and Deep Learning》 学习总结/"/>
+
+
+
+
+
+  <title>《Neural Networks and Deep Learning》学习总结 | mz</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mz</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+			
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/04/《Neural Networks and Deep Learning》 学习总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2016/10/05/57f4b04b333a2.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mz">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Neural Networks and Deep Learning》学习总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-04T12:46:23+08:00">
+                2019-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index">
+                    <span itemprop="name">AI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>近日读了Michael Nielsen 的 Neural Networks and Deep Learning 这本书，之所以选择这本书来学习，是因为这本书在篇幅上比较短，同时，其对于神经网络和深度学习这块做出了整体性的概述，对于我这样的AI小白来说，先了解整体比关注细节更为重要，因此我选择了这本书作为入门资料。</p>
+<p>我从以下几个方面总结了这本书：神经网络的相关概念、利用神经网络识别手写数字Demo演示、深度学习、优化神经网络的策略。</p>
+<a id="more"></a>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><h3 id="什么是神经网络？"><a href="#什么是神经网络？" class="headerlink" title="什么是神经网络？"></a>什么是神经网络？</h3><p>百度百科是这样说的：人工神经网络（Artificial Neural Networks，简写为ANNs）也简称为神经网络（NNs）或称作连接模型（Connection Model），它是一种模仿动物神经网络行为特征，进行分布式并行信息处理的算法数学模型。这种网络依靠系统的复杂程度，通过调整内部大量节点之间相互连接的关系，从而达到处理信息的目的。在工程与学术界也常直接简称为神经网络或类神经网络。</p>
+<p>听起来略复杂，通俗总结起来的几个要点是：(1)它是一种数学模型。（2）该模型可以进行信息处理。（3）该模型具有与人来神经网络相似的结构。</p>
+<h3 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h3><p>那么接下来，让我们通过其在学术上的相关概念来看下什么是神经网络，在介绍神经网络之前，让我们先来了解下感知机（学术上是这样教的，自我理解其跟神经元没什么太大的区别）。</p>
+<p>我们先来看个例子：</p>
+<p>想象一下，周末快要来了，你听说城市里将举办一个奶酪节。你挺喜欢奶酪的，所以你开始考虑要不要去参加。你发现有三个因素影响着你是否参加这个奶酪节：<br>1.天气<br>2.你的对象会不会陪你？（假设你有对象–单身狗表示听了很开心 hhhhh）<br>3.奶酪节举办的地点离地铁或公交近不近?(你没车)</p>
+<p>那么如何将该问题转化为数学模型呢？<br>把这三个因素当作三个二元变量，x1,x2,x3当x1时，代表天气很好，而x1=0时，代表天气很坏。相同的，x2=1代表你对象愿意陪你去，x2=0为不愿意。x3同理。它们对应权重为w1 w2 w3。<br>假如你特别特别特别喜欢吃奶酪，所以尽管对象不陪你去，交通也很偏远，你也要去参加这个奶酪节。此时，你可以设置:<br>天气权重w1=6，对象权重w2=2 交通权重w3=2然后设置阈值为5，此时计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">6*1+2*0+2*0=6&gt;5</div></pre></td></tr></table></figure></p>
+<p>所以，只要天气好，那么你就一定去。</p>
+<p>我们将其用表达式表示为：<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5mjzubv8qj309e02e0sr.jpg" alt="image"><br>图形化模型表示为：<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk0jyungj308003st8q.jpg" alt="image"></p>
+<p>上边的这张模型图，我们便把它叫做<strong>感知机</strong>。<br>简化上边的公式，将其变为向量乘积的形式（其中b≡−threshold）：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk2md175j306w022q2w.jpg" alt="image"><br>这就是感知机模型，由众多感知机组成的网络，则称为感知机网络。下图展示的是感知机网络完成与非门的功能：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk1lz6epj30a6030t8r.jpg" alt="image"><br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5mk1yodqnj30a60483yl.jpg" alt="image"><br>但是实际上，我们使用的神经网络用的并不是感知机模型，是因为其具有一定的局限性：<br>如果我们想要我们的网络具备一定的学习功能，在训练网络的时候（训练网络即通过大量的数据输入，使得网络找到最合适的权值w和阈值b），那么我们就要求在调整权重w和阈值b的时候，只会导致输出output的微小变化，而感知机模型的输出只有0和1两种情况，这就导致了我们的感知机网络经常不按常理出牌。权重和 bias 的微小改变，有时候会造成非常大的影响，例如从输出0变为输出1。</p>
+<p>这时候我们就需要一种新的模型来取代感知机–sigmoid神经元。</p>
+<h3 id="sigmoid神经元"><a href="#sigmoid神经元" class="headerlink" title="sigmoid神经元"></a>sigmoid神经元</h3><p>sigmoid神经元在整体上与感知机差别不大，主要的差异为：<br>（1）它的输入可以是0和1之间的任何值；<br>（2）它的输出也不止是0或者1，而是σ(w⋅x+b)，σ叫做sigmoid函数，其值为0～1之间的任何值，其表达式如下（其中z=wx+b）：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk383mi4j304m01c746.jpg" alt="image"><br>其函数图像为：<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5mk3vjhmpj30d807qdg0.jpg" alt="image"><br>该神经元很好地满足了权重和阈值的微小变化对于输出的影响也是极其微小的：<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mdci93gej30f407w3z2.jpg" alt="image"><br>我们可以使用数学上偏微分证明：<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5mk6629fzj308801a749.jpg" alt="image"><br>其实，我们可以看出感知机只是sigmoid神经元的一种特殊情况，当输出。</p>
+<h3 id="神经网络结构"><a href="#神经网络结构" class="headerlink" title="神经网络结构"></a>神经网络结构</h3><p>在介绍了感知机和神经元之后，现在我们可以轻松地知道神经网络是什么：即由众多神经元相互连接构成的能处理众多信息完成一定功能的一种数学模型（这里是我自己通俗的总结，大家轻喷）。<br>下面是一张神经网络图，我们通过这张图来看一下神经网络的结构：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mdkwxaz6j30gu09gdgo.jpg" alt="image"><br>从图中可以看到神经网络一般分为三层：输入层、隐藏层、输出层。<br>例如：<br>例如一张64x64的灰度图<br>输入：<br>4,096=64×64 个输入神经元，每个输入的范围大致从0到1<br>隐藏层：<br>根据网络特性不同，可以有不同的隐藏层（所以神经网络之间的不同，主要表现在不同的隐藏层，依然是我自己的理解）<br>输出：<br>只有一个神经元，如果其输出值小于0.5，则代表图片中的<br>数字不是9，如果其输出值大于0.5，则代表图片中的数字是9</p>
+<p>同样的，神经网络也具有一定的分类：<br>一般地，可以分为这两类：<br>（1）前馈神经网络<br>每一层的输出当作下一层的输入，这种网络又被称为 前馈 神经网络。<br>（2）循环神经网络<br>其他的人工神经网络允许循环存在，这样的模型叫做<br>循环神经网络，循环神经网络一般用在语音识别等方面。</p>
+<h3 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h3><p>我们在利用神经网络解决现实问题的时候，第一步往往是构建上边所讲的神经网络，第二步则是寻找合适的数据集进行训练。在进行训练（学习）的时候，我们需要一个算法，它能够使用数据进行学习，从而帮助我们找到一组合适的阈值（b）和权值（w），这个算法就是<strong>梯度下降算法</strong>。</p>
+<p>该算法的核心思想是：使权值和阈值朝着代价降低的方向变化，代价变为最低时的权值和阈值即为我们要找的权值和阈值。<br>因此该算法需要一个代价函数，来评估学习的效果，这里我们的代价函数选用二次代价函数作为我们的代价函数：<br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5mk6yztlfj308k01odfs.jpg" alt="image"><br>其中，y为期望输出，a为输入x后实际输出的输出向量，如果我们能找到一组权值和 biases，使得 C(w,b)≈0，就代表着我们的算法非常有效。相反，如果 C(w,b)的值很大，说明网络的输出 y(x)距离真实的 a 非常远。<br>那么有了代价函数之后，梯度下降算法的最终目标即为：找到这样一组权值和biases，使得代价 C(w,b) 最小化。<br>我们来看下梯度下降算法具体是怎样执行的：<br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5mi5hgunjj30e20bqjsa.jpg" alt="image"><br>我们来看这样一个图形，这就是我们画出来的代价函数的大致的一个图形，我们的目标就是找到处在谷底的那个点，那么怎样进行呢，我们需要用数学表达式来表示：<br>这个图中某一点的梯度可以表示为：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mk7dr2m5j305q01kjrb.jpg" alt="image"><br>向量形式为：<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk8hg3rsj303e0120sm.jpg" alt="image"><br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk8rmy83j303g016dfq.jpg" alt="image"><br>这几个式子涉及到高数里边的偏微分的知识，看不懂的可以稍微复习下高数，那么我们如何确定Δv，使得代价函数C的值一直变小，即ΔC&lt;0，即朝着谷底的方向移动。<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mk9548jmj3036010q2t.jpg" alt="image"><br>为什么呢？证明如下：<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5mkf5adojj308o00s3yg.jpg" alt="image"><br>其中η我们称之为学习率，那么η值又该如何确定呢，在本书中给出了一个参考，但是这不是适用于所有的情况，要根据实际情况确定：<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mkhutbt0j304800udfq.jpg" alt="image"><br>至于为什么这样取值可以满足需要，我给出了如下的证明：<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5mifpa6ruj30ga0gqtb1.jpg" alt="image"></p>
+<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p>在利用梯度下降算法进行学习时，计算梯度也是其中关键的一步，计算梯度的算法：反向传播算法<br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5miha95aaj30is0aimxq.jpg" alt="image"><br>这四个算法的具体含义：BP1是根据L层的z来计算L层的误差。BP2是根据L+1层的误差来估算第L层的误差。BP3则是由BP1计算出的误差计算，梯度的的横坐标（姑且允许我这样叫），BP4则是计算出来梯度的纵坐标。</p>
+<p>对于这几个式子的证明，网上已经有许多人证明过，感兴趣的大家可以自己去搜一下。</p>
+<h2 id="构建神经网络识别手写数字的DEMO"><a href="#构建神经网络识别手写数字的DEMO" class="headerlink" title="构建神经网络识别手写数字的DEMO"></a>构建神经网络识别手写数字的DEMO</h2><p>在这本书中，给出了一个神经网络的demo，这个demo的核心代码仅仅有70多行，便可以达到百分之九十五以上的识别准确率。<br>其核心代码，network.py我贴在下边：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div></pre></td><td class="code"><pre><div class="line">&quot;&quot;&quot;</div><div class="line">network.py</div><div class="line">~~~~~~~~~~</div><div class="line"></div><div class="line">A module to implement the stochastic gradient descent learning</div><div class="line">algorithm for a feedforward neural network.  Gradients are calculated</div><div class="line">using backpropagation.  Note that I have focused on making the code</div><div class="line">simple, easily readable, and easily modifiable.  It is not optimized,</div><div class="line">and omits many desirable features.</div><div class="line">&quot;&quot;&quot;</div><div class="line"></div><div class="line">#### Libraries</div><div class="line"># Standard library</div><div class="line">import random</div><div class="line"></div><div class="line"># Third-party libraries</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">class Network(object):</div><div class="line"></div><div class="line">    def __init__(self, sizes):</div><div class="line">        &quot;&quot;&quot;The list ``sizes`` contains the number of neurons in the</div><div class="line">        respective layers of the network.  For example, if the list</div><div class="line">        was [2, 3, 1] then it would be a three-layer network, with the</div><div class="line">        first layer containing 2 neurons, the second layer 3 neurons,</div><div class="line">        and the third layer 1 neuron.  The biases and weights for the</div><div class="line">        network are initialized randomly, using a Gaussian</div><div class="line">        distribution with mean 0, and variance 1.  Note that the first</div><div class="line">        layer is assumed to be an input layer, and by convention we</div><div class="line">        won&apos;t set any biases for those neurons, since biases are only</div><div class="line">        ever used in computing the outputs from later layers.&quot;&quot;&quot;</div><div class="line">        self.num_layers = len(sizes)</div><div class="line">        self.sizes = sizes</div><div class="line">        self.biases = [np.random.randn(y, 1) for y in sizes[1:]]</div><div class="line">        self.weights = [np.random.randn(y, x)</div><div class="line">                        for x, y in zip(sizes[:-1], sizes[1:])]</div><div class="line"></div><div class="line">    def feedforward(self, a):</div><div class="line">        &quot;&quot;&quot;Return the output of the network if ``a`` is input.&quot;&quot;&quot;</div><div class="line">        for b, w in zip(self.biases, self.weights):</div><div class="line">            a = sigmoid(np.dot(w, a)+b)</div><div class="line">        return a</div><div class="line"></div><div class="line">    def SGD(self, training_data, epochs, mini_batch_size, eta,</div><div class="line">            test_data=None):</div><div class="line">        &quot;&quot;&quot;Train the neural network using mini-batch stochastic</div><div class="line">        gradient descent.  The ``training_data`` is a list of tuples</div><div class="line">        ``(x, y)`` representing the training inputs and the desired</div><div class="line">        outputs.  The other non-optional parameters are</div><div class="line">        self-explanatory.  If ``test_data`` is provided then the</div><div class="line">        network will be evaluated against the test data after each</div><div class="line">        epoch, and partial progress printed out.  This is useful for</div><div class="line">        tracking progress, but slows things down substantially.&quot;&quot;&quot;</div><div class="line">        if test_data: n_test = len(test_data)</div><div class="line">        n = len(training_data)</div><div class="line">        for j in xrange(epochs):</div><div class="line">            random.shuffle(training_data)</div><div class="line">            mini_batches = [</div><div class="line">                training_data[k:k+mini_batch_size]</div><div class="line">                for k in xrange(0, n, mini_batch_size)]</div><div class="line">            for mini_batch in mini_batches:</div><div class="line">                self.update_mini_batch(mini_batch, eta)</div><div class="line">            if test_data:</div><div class="line">                print &quot;Epoch &#123;0&#125;: &#123;1&#125; / &#123;2&#125;&quot;.format(</div><div class="line">                    j, self.evaluate(test_data), n_test)</div><div class="line">            else:</div><div class="line">                print &quot;Epoch &#123;0&#125; complete&quot;.format(j)</div><div class="line"></div><div class="line">    def update_mini_batch(self, mini_batch, eta):</div><div class="line">        &quot;&quot;&quot;Update the network&apos;s weights and biases by applying</div><div class="line">        gradient descent using backpropagation to a single mini batch.</div><div class="line">        The ``mini_batch`` is a list of tuples ``(x, y)``, and ``eta``</div><div class="line">        is the learning rate.&quot;&quot;&quot;</div><div class="line">        nabla_b = [np.zeros(b.shape) for b in self.biases]</div><div class="line">        nabla_w = [np.zeros(w.shape) for w in self.weights]</div><div class="line">        for x, y in mini_batch:</div><div class="line">            delta_nabla_b, delta_nabla_w = self.backprop(x, y)</div><div class="line">            nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]</div><div class="line">            nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]</div><div class="line">        self.weights = [w-(eta/len(mini_batch))*nw</div><div class="line">                        for w, nw in zip(self.weights, nabla_w)]</div><div class="line">        self.biases = [b-(eta/len(mini_batch))*nb</div><div class="line">                       for b, nb in zip(self.biases, nabla_b)]</div><div class="line"></div><div class="line">    def backprop(self, x, y):</div><div class="line">        &quot;&quot;&quot;Return a tuple ``(nabla_b, nabla_w)`` representing the</div><div class="line">        gradient for the cost function C_x.  ``nabla_b`` and</div><div class="line">        ``nabla_w`` are layer-by-layer lists of numpy arrays, similar</div><div class="line">        to ``self.biases`` and ``self.weights``.&quot;&quot;&quot;</div><div class="line">        nabla_b = [np.zeros(b.shape) for b in self.biases]</div><div class="line">        nabla_w = [np.zeros(w.shape) for w in self.weights]</div><div class="line">        # feedforward</div><div class="line">        activation = x</div><div class="line">        activations = [x] # list to store all the activations, layer by layer</div><div class="line">        zs = [] # list to store all the z vectors, layer by layer</div><div class="line">        for b, w in zip(self.biases, self.weights):</div><div class="line">            z = np.dot(w, activation)+b</div><div class="line">            zs.append(z)</div><div class="line">            activation = sigmoid(z)</div><div class="line">            activations.append(activation)</div><div class="line">        # backward pass</div><div class="line">        delta = self.cost_derivative(activations[-1], y) * \</div><div class="line">            sigmoid_prime(zs[-1])</div><div class="line">        nabla_b[-1] = delta</div><div class="line">        nabla_w[-1] = np.dot(delta, activations[-2].transpose())</div><div class="line">        # Note that the variable l in the loop below is used a little</div><div class="line">        # differently to the notation in Chapter 2 of the book.  Here,</div><div class="line">        # l = 1 means the last layer of neurons, l = 2 is the</div><div class="line">        # second-last layer, and so on.  It&apos;s a renumbering of the</div><div class="line">        # scheme in the book, used here to take advantage of the fact</div><div class="line">        # that Python can use negative indices in lists.</div><div class="line">        for l in xrange(2, self.num_layers):</div><div class="line">            z = zs[-l]</div><div class="line">            sp = sigmoid_prime(z)</div><div class="line">            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp</div><div class="line">            nabla_b[-l] = delta</div><div class="line">            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())</div><div class="line">        return (nabla_b, nabla_w)</div><div class="line"></div><div class="line">    def evaluate(self, test_data):</div><div class="line">        &quot;&quot;&quot;Return the number of test inputs for which the neural</div><div class="line">        network outputs the correct result. Note that the neural</div><div class="line">        network&apos;s output is assumed to be the index of whichever</div><div class="line">        neuron in the final layer has the highest activation.&quot;&quot;&quot;</div><div class="line">        test_results = [(np.argmax(self.feedforward(x)), y)</div><div class="line">                        for (x, y) in test_data]</div><div class="line">        return sum(int(x == y) for (x, y) in test_results)</div><div class="line"></div><div class="line">    def cost_derivative(self, output_activations, y):</div><div class="line">        &quot;&quot;&quot;Return the vector of partial derivatives \partial C_x /</div><div class="line">        \partial a for the output activations.&quot;&quot;&quot;</div><div class="line">        return (output_activations-y)</div><div class="line"></div><div class="line">#### Miscellaneous functions</div><div class="line">def sigmoid(z):</div><div class="line">    &quot;&quot;&quot;The sigmoid function.&quot;&quot;&quot;</div><div class="line">    return 1.0/(1.0+np.exp(-z))</div><div class="line"></div><div class="line">def sigmoid_prime(z):</div><div class="line">    &quot;&quot;&quot;Derivative of the sigmoid function.&quot;&quot;&quot;</div><div class="line">    return sigmoid(z)*(1-sigmoid(z))</div></pre></td></tr></table></figure></p>
+<p>接下来，我们进行一个实际操作。<br>在进行实际操作前，需要交代一下，程序运行的一些基本配置信息：</p>
+<blockquote>
+<p>运行环境：python2终端（用python3有些语法不兼容）<br>训练数据集：MINIST数据集<br>使用到的Python库：Numpy<br>权重和biases的随机初始化：利用的是 Numpy 中的 np.random.randn 函数，生成期望为0，标准差为1的高斯分布</p>
+</blockquote>
+<p>接下来我们运行一下程序：<br>首先加载数据集：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import mnist_loader</div><div class="line">&gt;&gt;&gt; training_data, validation_data, test_data = \</div><div class="line">... mnist_loader.load_data_wrapper()</div></pre></td></tr></table></figure></p>
+<p>构建神经网络：<br>784个神经元的输入层、30个神经元的隐藏层、<br>10个神经元的输出层<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import network</div><div class="line">&gt;&gt;&gt; net = network.Network([784, 30, 10])</div></pre></td></tr></table></figure></p>
+<p>训练网络：<br>训练代数：30、学习率为3.0、mini-batch的大小为10<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net.SGD(training_data, 30, 10, 3.0, test_data=test_data)</div></pre></td></tr></table></figure></p>
+<p>运行的结果：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5miwmium1j30hy0iqjtz.jpg" alt="image"><br>可以看到，我们的结果达到了95%左右，这是未经优化过的结果，已经很令人满意了，在这本书的后边章节，经过优化以后，准确率可以达到98%左右，我在本篇博客中便不再赘述，感兴趣的可以搜下这本书。<br>当然你也可以，改变隐藏层的数量，以及学习率等，观察一下训练的结果将如何变化。<br>例如：我将隐藏神经元改为100，发现训练的效果很差<br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5mj3y8qrij30fk0gcjtm.jpg" alt="image"></p>
+<h2 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h2><p>由于在这本书中，对于深度学习，只谈及到了一点，所以，我在这里只谈一下自己学到的一些东西。<br>通过数字识别的实战，我们不难发现：<br>有时，通过增加隐藏神经元的层数可以使得训练效果变好，但是有时候却起到相反的效果，为什么？<br>随着神经网络的层数增多，由于反向传播的特点，会出现梯度消失和梯度爆炸等问题，这些问题会导致越深层次的神经网络，越难训练。即会出现梯度消失和梯度爆炸的问题：<br>梯度消失：对于某些深层神经网络来说，其梯度在隐藏层中进行反向传播时，会变得越来越小。这意味着前面的隐藏层中的神经元会学习地非常慢。其一般由sigmoid函数的特性引起。<br>梯度爆炸：跟梯度消失相反，梯度爆炸问题是梯度在反向传播中呈指数级增长。<br>那么如何解决梯度不稳定的问题呢？</p>
+<ul>
+<li><p>使用卷积神经网络<br>其可以很好解决深层网络难以训练的问题，卷积层可以极大地地减少网络需要的参数，让训练变得更为容易。<br>其主要由三步构成：局部接受域、共享权值和池化</p>
+</li>
+<li><p>使用更多更强大的正则化技巧（特别是 dropout 和卷积层）去减轻过拟合来使得梯度达到平稳状态</p>
+</li>
+<li>使用 ReLU 激活函数而不是 sigmoid 激活函数，其可以加快训练速度</li>
+</ul>
+<h2 id="优化神经网络的策略"><a href="#优化神经网络的策略" class="headerlink" title="优化神经网络的策略"></a>优化神经网络的策略</h2><ol>
+<li>交叉熵解决学习缓慢的问题<br>将学习使用的二次代价函数使用交叉熵代价函数代替：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mkj4iggpj307a01adfr.jpg" alt="image"><br> 为什么交叉熵函数相较二次代价函数可以解决学习缓慢的问题呢？<br>我们可以看下我们使用交叉熵算出来的梯度：<br><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5mkkwvswqj305o01g0so.jpg" alt="image"><br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mklghb30j305a01c0so.jpg" alt="image"><br>使用二次函数计算出来的梯度：<br><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5mkmk2vehj305o020gll.jpg" alt="image"><br>二者对比，我们可以发现交叉熵函数中梯度的表达式不包含sigmoid函数的导数，由于sigmoid函数的图像特性，其在两端会趋向于平缓导致学习缓慢，而交叉熵代价函数则不会。</li>
+</ol>
+<ol>
+<li>过拟合问题<br>即训练结果在训练数据上表现得很好，但是一旦换了其他的数据，效果变得很差，就是说训练的神经网络不具备一定的普遍性。如何解决？</li>
+</ol>
+<ul>
+<li><p>通过增加训练集解决过拟合问题<br>简单的学习算法+好的训练集&gt;复杂的学习算法<br>可以通过寻找质量高的训练集或者增加训练集的数量来解决过拟合问题。</p>
+</li>
+<li><p>正则化解决过拟合的问题<br>L2正则化后的交叉熵代价函数为：<br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5mkn3tcpjj30be01eweh.jpg" alt="image"><br>其包含一个lamda参数，这个也需要我们根据情况设置不同的lamada参数。</p>
+</li>
+<li><p>Dropout解决过拟合问题<br>dropout减轻过拟合是通过随机隐藏一些隐藏神经元<br>然后反复执行这个过程，反复训练，最后求出的一组<br>权值和bias。</p>
+</li>
+<li><p>寻找合适的超参数来解决过拟合问题<br>超参数包括：学习率、mini-batch、隐藏层数量、正则化系数等。</p>
+</li>
+</ul>
+<p>3.改变其他神经元激活函数来取得更好的学习效果</p>
+<ul>
+<li><p>使用tanth神经元激活函数</p>
+</li>
+<li><p>使用ReLU 激活函数</p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这本书的学习，虽然有些概念以及所传达的思想还未完全吃透弄懂，但是对于神经网络和深度学习有了一个整体的概念，这有助于后续进一步学习AI的相关知识，AI小白我也算是入了个门吧，此外，这篇文章只是我按照自己的思路总结出的一篇笔记，如有错误，还望大家指正。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
+            <a href="/tags/神经网咯/" rel="tag"># 神经网咯</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/10/git常用命令总结/" rel="next" title="git常用命令总结">
+                <i class="fa fa-chevron-left"></i> git常用命令总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2016/10/05/57f4b04b333a2.jpeg"
+               alt="mz" />
+          <p class="site-author-name" itemprop="name">mz</p>
+           
+              <p class="site-description motion-element" itemprop="description">更优秀的自己去见未来的你。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chaserr" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/lovaxiang" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      新浪微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/x.tongxing" target="_blank" title="FaceBook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      FaceBook
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/u/0/117848542581702766384" target="_blank" title="GooglePlus">
+                  
+                    <i class="fa fa-fw fa-google-plus"></i>
+                  
+                    
+                      GooglePlus
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络"><span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是神经网络？"><span class="nav-text">什么是神经网络？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感知机"><span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid神经元"><span class="nav-text">sigmoid神经元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络结构"><span class="nav-text">神经网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降算法"><span class="nav-text">梯度下降算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播算法"><span class="nav-text">反向传播算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建神经网络识别手写数字的DEMO"><span class="nav-text">构建神经网络识别手写数字的DEMO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度学习"><span class="nav-text">深度学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化神经网络的策略"><span class="nav-text">优化神经网络的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共11.3k字</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141897"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
